@@ -1,0 +1,71 @@
+Blur(TM)
+--------
+Download: https://www.myabandonware.com/game/blur-gls#download
+
+Download ONLY v1.0! See below as to why:
+
+  There's a community-run server called Amax to keep online features of Blur alive.
+  See https://amax-emu.com/How_to_play for more info.
+
+If you can, you're advised to limit the game's framerate to 60 FPS since anything higher will greatly break the way it's rendered.
+NVIDIA GPU users can do this either within NVIDIA Control Panel or the NVIDIA App;
+
+  Control Panel: Manage 3D Settings > Program Settings > Blur.exe (Select a program to customise) > Max Frame Rate (Specify the settings for this program) > On (60)
+  NVIDIA App: Graphics > ADD A PROGRAM > C:\Program Files (x86)\Activision\Blur\Blur.exe > Max Frame Rate > On (60)
+
+Linux users can also pull off something similar using libstrangle: https://aur.archlinux.org/packages/libstrangle-git
+
+EZCast Lite
+-----------
+This software is meant to make use of the additional functionality provided in Miracast devices like Anycast, such as YouTube playback and receiver-level volume control.
+
+It also provides faster connection in comparison to the regular built-in Miracast protocol (The "Cast" tile).
+
+Download: https://any-cast.com/pages/download-ezcastlite-for-windows
+
+Microsoft Visual C++ Redistributable
+------------------------------------
+TechPowerUp was kind enough to bundle all setups into one with a script to perform unattended installations.
+
+Get it here: https://www.techpowerup.com/download/visual-c-redistributable-runtime-package-all-in-one/
+
+Visual Studio Community Edition/Visual Studio Installer
+-------------------------------------------------------
+Download: https://visualstudio.microsoft.com/vs/community/
+
+Windows Media Center
+--------------------
+Microsoft removed support for Windows Media Center and Windows DVD Player long ago, but there's a 3rd party port to get it fully working on the latest and greatest versions of Windows.
+
+  See: https://garyan2.github.io/win10.html
+
+  Dependency (Windows DVD Player): https://garyan2.github.io/downloads/Win10/windows10.0-kb3106246-x64.msi
+
+Encoding password for use in the answer file
+--------------------------------------------
+If you can use UNIX tools (such as with Cygwin or WSL), you're better off using the "base64" tool.
+If you want to stick with PowerShell instead, the following command should do:
+
+  [System.Convert]::ToBase64String([System.Text.Encoding]::UTF8.GetBytes("<string>"))
+
+The string should be composed this way;
+- Determine your password
+- Put the phrase "Password" at the end of it, without a space.
+
+For example, if your password is "notarealpw" like in the answer file in this repo, then the string to encode should be "notarealpwPassword".
+The above string can be put into use for encoding this way:
+
+  UNIX base64 tool: echo notarealpwPassword | base64
+  PowerShell: [System.Convert]::ToBase64String([System.Text.Encoding]::UTF8.GetBytes("notarealpwPassword"))
+
+Once that's done, find your user account in the following path in autounattend.xml and replace the password in it;
+
+  /unattend/settings[pass="oobeSystem"]/component[name="Microsoft-Windows-Shell-Setup"]/UserAccounts/LocalAccounts/LocalAccount[wcm:action="add"]/Password/Value
+
+Do keep in mind that the "PlainText" key in the same block has to be be set to "false". Otherwise, you should put your password in the "Value" key in, well, plain text obviously.
+
+Display name for use in the answer file
+---------------------------------------
+/unattend/settings[pass="oobeSystem"]/component[name="Microsoft-Windows-Shell-Setup"]/UserAccounts/LocalAccounts/LocalAccount[wcm:action="add"]/DisplayName
+
+The "Name" key impacts the username whereas "DisplayName" is what you see in the GUI.

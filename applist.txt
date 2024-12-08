@@ -1,0 +1,26 @@
+Win32
+-----
+Ableton Live 12 Suite
+Blur(TM) (Abandonware, see resources.txt)
+EZCast Lite (Device-specific, see resources.txt)
+Microsoft Visual C++ Redistributable (Bundle, see resources.txt)
+Microsoft Visual Studio Community Edition (Requires Visual Studio Installer, see resources.txt)
+UltraISO
+VMware Workstation (Requires Broadcom account to download, see resources.txt)
+Windows Media Center (3rd party port, see resources.txt)
+
+Chrome PWA
+----------
+Bluesky (bsky.app)
+Google Classroom (classroom.google.com)
+Google Voice (voice.google.com)
+X (Twitter) (x.com/home)
+YouTube Music (music.youtube.com)
+
+Steam
+-----
+Asphalt Legends Unite
+ATRI -My Dear Moments-
+Geometry Dash
+Paper Lily - Chapter 1
+Wallpaper Engine

@@ -2,6 +2,8 @@
 
 This right here is my configuration for Windows, made for myself, documented for everyone.
 
+#### May alternatively be called "St-Denis Sane Unattend Configuration", or "St-DeSUCo" in short.
+
 # File list
 
 - `autounattend.xml`: Answer file to bundle with installer disk to do the base configuration automatically.
@@ -10,7 +12,7 @@ This right here is my configuration for Windows, made for myself, documented for
 - `mods.txt`: Documentation for post-install modifications I make to Windows that won't be handled by scripts or can't be done reliably by answer files.
 - `resources.txt`: Links to resources that will be useful in case of need.
 
-# `autounattend.xml`
+## `autounattend.xml`
 
 - Installs Windows 10/11 Pro using the generic product key depending on the install media bundled.
   - Language: English International
@@ -65,7 +67,7 @@ This right here is my configuration for Windows, made for myself, documented for
   - (Planned) Pulls and installs the NVIDIA app if there's internet connection.
     - The NVIDIA app will then proceed to download and install the latest Game Ready driver for the NVIDIA GPU on your computer if it has one.
 
-# `winget-bundle.cmd`
+## `winget-bundle.cmd`
 
 - A couple of `start winget` commands designed to do one thing: Install every single possible app listed inside.
 - List of apps;
@@ -102,15 +104,15 @@ This right here is my configuration for Windows, made for myself, documented for
   - `winget/VideoLAN.VLC`
 - To run both of these at once, just run `winget-bundle-all.cmd` instead.
 
-# `applist.txt`
+## `applist.txt`
 
 - Self explanatory.
 
-# `mods.txt`
+## `mods.txt`
 
 - Self explanatory.
 
-# `resources.txt`
+## `resources.txt`
 
 - Self explanatory.
 
@@ -123,5 +125,5 @@ This right here is my configuration for Windows, made for myself, documented for
 
 1. Add NVIDIA app into post-first-logon.
 2. Remove more of the less frequently used apps from Start pins.
-3. Documentation about setting an encoded password entry in answer files.
-  - Hint: You just need to encode `<yourpassword>Password` to base64 and put it in `LocalAccount.Password.Value` and set `LocalAccount.Password.PlainText` to false.
+3. GitHub Actions for building a discrete ISO with these files. (Basically a data CD ISO with the files in this repo.)
+> You may alternatively opt for a tool like AnyBurn or UltraISO for the time being.

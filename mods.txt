@@ -1,0 +1,104 @@
+Windows Subsystem for Linux/Android
+-----------------------------------
+Since my autounattend disables Hyper-V as a boot parameter, the system will refuse to launch Hyper-V virtual machines even if you explicitly enable the feature.
+Furthermore, enabling this after installing VMware Workstation might cause problems related to VM performance and warnings related to Side Channel Mitigation.
+If you can, go for a full-blown Linux VM. If you can't or aren't willing to, run the following command as administrator and reboot;
+
+  bcdedit /set hypervisorlaunchtype auto
+
+Once that's done, either install WSL using "wsl --install" or WSA from WSABuilds GitHub repo.
+
+Dualbooting with Linux/ChromeOS/macOS
+-------------------------------------
+Unless you install Arch with "hwclock --hctosys" or use Pisi Linux, it's very unlikely for a non-NT kernel to cooperate with how Windows handles hardware clock.
+The simplest solution is to tell Windows to cooperate instead and have it do this the Linux way;
+
+  HKLM\System\CurrentControlSet\Control\TimeZoneInformation
+    RealTimeIsUniversal[DWORD]=1
+
+Follow this by a reboot and resync your time on either of the OSes.
+
+Hosts entry for GSBWIFI
+-----------------------
+wifi.gsb.gov.tr is resolved in a local DNS server with the domain name kykwifi.com and the login page itself is also local to the dormitory.
+This situation makes usage of a VPN such as WireGuard an unviable solution because a VPN typically changes your DNS server, which means the domain will no longer work.
+The following is the hosts entry you should put into C:\Windows\System32\drivers\etc\hosts as an administrator to get this resolved.
+
+  10.106.7.45 wifi.gsb.gov.tr
+
+The IP address may vary depending on the exact dormitory. You should try pinging the address and see what IP it resolves to.
+This immediately takes effect after saving the file, but just to play it safe, you may want to do;
+
+  ipconfig /flushdns
+
+Certificate for GSBWIFI
+-----------------------
+If you don't want to use VPN and are content with having to cope with the narrow-as-hell bandwidth your dormitory's WiFi offers, you WILL have to install its certificate.
+Visit wifi.gsb.gov.tr and switch to Turkish to obtain the "GSB Drive" link for the certificate.
+Install the certificate into the "Trusted Certificate Authorities" store of the Local Machine.
+Once that's done, either restart your system or relaunch your browser.
+
+Connecting to eduroam
+---------------------
+Universities tend to offer different methods to connect to eduroam, but Windows has become smart enough to understand the security type a given enterprise network uses.
+If clicking Connect on the network and entering your university credentials doesn't work or if you need a certificate you can only obtain with CAT, visit:
+
+  https://cat.eduroam.org/
+
+QoL tweaks for StartAllBack
+---------------------------
+- Start Menu
+  - Disable the master toggle
+
+- Taskbar
+  - Enable "Centered task icons", keep the mode at default
+
+- Tray icons
+  - Enable "Quick settings" (between the input indicator and clock)
+
+- Explorer
+  - Use "Win11 Command Bar" for stock cmdbar, "Win10 Ribbon UI" for something more performant and that feels more right.
+  - You may disable "Classic context menus" if you want the modern context menu, though the classic one is already redesigned by SAB to look more consistent and perform faster.
+  - Enable "Colorize everything with accent color"
+
+- Advanced
+  - Enable "Use new font for classic UI"
+
+Enable Magic category in StartAllBack
+-------------------------------------
+This will make even more under-the-hood tweaks to visual style and may require you to log out for this to work properly.
+
+  StartAllBackCfg.exe /Magic
+
+Then enable the master toggle and log out.
+
+Remap Menu key to act as Right CTRL
+-----------------------------------
+Some gaming laptops omit the right CTRL keys on non-English layouts, such as Turkish Q, in favor of keys like "<" instead of omitting the menu key instead.
+You can use PowerToys's Keyboard Manager utility to remap the menu key.
+One side effect to this will be that some programs will still recognize the menu key and treat it as one upon key release event.
+
+  Source key: Apps/Menu
+  Target keybind: RCTRL+(None)
+
+PowerToys will give out a warning that the source key isn't bound to anything yet. Just confirm that. No reboot required.
+
+Enable sudo command on Windows 11 v23H2 and higher
+--------------------------------------------------
+Settings > System > For developers > Enable sudo
+
+You may also want to expand the option to configure sudo to run inline just like in Linux. The default is in a new window.
+
+Enable end task option on taskbar icon right click on Windows 11 v22H2 and higher
+---------------------------------------------------------------------------------
+Settings > System > For developers > End Task
+
+Enable the option to hibernate
+------------------------------
+Control Panel (control.exe) > Power Options > Choose what the power buttons do > Change settings that are currently unavailable > Hibernate (Tick this) > Save changes
+
+If the option for "Hibernate" doesn't appear, try running this command as an admin;
+
+  powercfg -h on
+
+No need to follow that by a reboot. This change takes effect immediately.

@@ -1,0 +1,4 @@
+v1.0.0-24H2
+https://github.com/kurtbahartr/windows-configs/releases/v1.0.0-24H2
+-------------------------------------------------------------------
+- Initial release based on Windows 11, version 24H2.
