@@ -1,0 +1,127 @@
+# Windows Configs
+
+This right here is my configuration for Windows, made for myself, documented for everyone.
+
+# File list
+
+- `autounattend.xml`: Answer file to bundle with installer disk to do the base configuration automatically.
+- `winget-bundle.cmd`: Script to install as many apps as possible from Winget in batches. Winget is already smart enough to know when it's installing something, so the order of installed apps will be rather random once it's fully done.
+- `applist.txt`: Hand-written text file to list apps that aren't in `winget-bundle.cmd`. Those are either not in Winget repos or installed externally on purpose.
+- `mods.txt`: Documentation for post-install modifications I make to Windows that won't be handled by scripts or can't be done reliably by answer files.
+- `resources.txt`: Links to resources that will be useful in case of need.
+
+# `autounattend.xml`
+
+- Installs Windows 10/11 Pro using the generic product key depending on the install media bundled.
+  - Language: English International
+  - Locale configuration: English (Canada)
+  - Time zone: Windows should detect this post-install when it's online.
+  - Keyboard layouts;
+    - US in English (Canada) (Default)
+    - Turkish Q in Turkish (Turkey)
+    - UK in English (United Kingdom)
+- Lets the user do the partitioning.
+- Computer name is set to `TEMPNAME` as a placeholder since a script will construct a hostname and set that one pre-OOBE.
+- Creates two password-locked administrator user accounts:
+  - Linda (Display name: Linda St-Denis)
+  - Sara (Display name: Sara St-Denis)
+- Constructs a hostname according to device model and sets that pre-OOBE.
+  - The hostname is prefixed with `st-denis-`.
+  - The portion **after the last space** and before the first unacceptable character (anything that's not a letter or number) is taken into consideration for the rest. For example,
+    - If your motherboard reports the model as "Excalibur G770", the hostname will be `st-denis-g770`.
+    - If your motherboard reports the model as "VMware20,1", the hostname will be `st-denis-vmware20`.
+  - The hostname is trimmed according for NetBIOS compliance for network name, much like how Windows does it internally.
+    - If your hostname ends up being `st-denis-vmware20`, the network name will be `ST-DENIS-VMWARE`.
+    - This doesn't impact the hostname you see on your local system and in Settings, it will still be `st-denis-vmware20`.
+- Configures the system pre-OOBE such that;
+  - Hibernation is enabled if possible.
+  - Device Guard is disabled for proper support for Type 2 hypervisors such as VirtualBox and VMware Workstation.
+  - Hyper-V is disabled in BCD store for the same reason.
+  - The network requirement bypass is enabled. (BypassNRO)
+  - Long pathnames are enabled as suggested by Python installer.
+  - Windows Update will assume the system is active all the time and won't reboot the system when it thinks it's inactive.
+  - Bitlocker automatic encryption is disabled. User may opt into encrypting their device manually through Manage Bitlocker Control Panel applet.
+  - Microsoft Edge's annoying first-run experience is hidden, so that you won't have to go through it every time you create a new account or perform a new installation with the answer file.
+  - Sets default start menu pins to omit unnecessary bloat in pinned section on Windows 11. List of apps pinned (subject to change):
+    - Microsoft Edge
+    - Microsoft 365 (Office) UWP
+    - Outlook (New)
+    - Microsoft Store
+    - Photos
+    - Settings
+    - Xbox
+    - Paint
+    - Calculator
+    - Clock
+    - Notepad
+    - Snipping Tool
+    - File Explorer
+- Configures the system on first logon of the first administrator (likely configured during OOBE or within the answer file) such that;
+  - File extensions are enabled.
+  - Hidden files are enabled, but protected system files are still kept hidden.
+  - No unwanted app is installed automatically. I don't think you want some sane configuration only for Candy Crush to be installed automatically, right?
+  - NumLock is enabled on boot regardless of BIOS settings.
+  - Deletes `C:\Windows.old` if it exists.
+  - (Planned) Pulls and installs the NVIDIA app if there's internet connection.
+    - The NVIDIA app will then proceed to download and install the latest Game Ready driver for the NVIDIA GPU on your computer if it has one.
+
+# `winget-bundle.cmd`
+
+- A couple of `start winget` commands designed to do one thing: Install every single possible app listed inside.
+- List of apps;
+  - `msstore/"Samsung Account"`
+  - `winget/7zip.7zip`
+  - `winget/Discord.Discord`
+  - `msstore/"Python 3.11"`
+  - `msstore/"Speedtest by Ookla"`
+  - `msstore/9NCBCSZSJRSB` (Spotify)
+  - `winget/Valve.Steam`
+  - `msstore/"Unigram"`
+  - `winget/Microsoft.WindowsTerminal`
+  - `msstore/"WhatsApp"`
+- There's also a `winget-bundle-optional.cmd` that will install all other apps I use myself that others might not need/want.
+  - `winget/Google.Chrome`
+  - `winget/Windscribe.Windscribe`
+  - `msstore/"Samsung Cloud Assistant"`
+  - `msstore/"Microsoft To Do"`
+  - `winget/Microsoft.PowerToys`
+  - `winget/Oracle.VirtualBox`
+  - `msstore/"Quick Share"`
+  - `winget/Google.QuickShare"`
+  - `msstore/"Rufus"`
+  - `msstore/"Samsung Gallery"`
+  - `msstore/"Slack"`
+  - `winget/StartIsBack.StartAllBack`
+    - You can use the second line instead of the first if you have a key to activate SAB with.
+    - I STRONGLY RECOMMEND that you use SAB if you have OCD and use Windows 11 22H2+!
+      - Windows 11 build 22621.1344 (version 22H2 KB5022913 update) updates the taskbar in a way that breaks the minimise animations while reimplementing the system tray menu. This change has been the default since 23H2 RTM.
+  - `winget/tailscale.tailscale`
+  - `winget/CodeSector.TeraCopy`
+  - `winget/Transmission.Transmission`
+    - Installs `winget/Microsoft.VCRedist.2015+.x64` in advance as a dependency.
+  - `winget/VideoLAN.VLC`
+- To run both of these at once, just run `winget-bundle-all.cmd` instead.
+
+# `applist.txt`
+
+- Self explanatory.
+
+# `mods.txt`
+
+- Self explanatory.
+
+# `resources.txt`
+
+- Self explanatory.
+
+# Credits
+
+- https://schneegans.de/windows/unattend-generator/
+- Microsoft documentation for Winget and answer files
+
+# To-Do
+
+1. Add NVIDIA app into post-first-logon.
+2. Remove more of the less frequently used apps from Start pins.
+3. Documentation about setting an encoded password entry in answer files.
+  - Hint: You just need to encode `<yourpassword>Password` to base64 and put it in `LocalAccount.Password.Value` and set `LocalAccount.Password.PlainText` to false.
