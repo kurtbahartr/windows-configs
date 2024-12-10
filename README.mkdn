@@ -89,6 +89,7 @@ This right here is my configuration for Windows, made for myself, documented for
   - `msstore/"Samsung Cloud Assistant"`
   - `msstore/"Microsoft To Do"`
   - `winget/Microsoft.PowerToys`
+  - `winget/Microsoft.VisualStudioCode`
   - `winget/Oracle.VirtualBox`
   - `msstore/"Quick Share"`
   - `winget/Google.QuickShare"`

@@ -6,6 +6,7 @@ start winget install Windscribe.Windscribe --source winget
 start winget install "Samsung Cloud Assistant" --source msstore --accept-package-agreements
 start winget install "Microsoft To Do" --source msstore --accept-package-agreements
 start winget install Microsoft.PowerToys --source winget
+start winget install Microsoft.VisualStudioCode --source winget
 start winget install Oracle.VirtualBox --source winget
 start winget install "Quick Share" --source msstore --accept-package-agreements
 start winget install Google.QuickShare --source winget
