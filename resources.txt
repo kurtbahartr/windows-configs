@@ -43,26 +43,7 @@ Microsoft removed support for Windows Media Center and Windows DVD Player long a
 
 Encoding password for use in the answer file
 --------------------------------------------
-If you can use UNIX tools (such as with Cygwin or WSL), you're better off using the "base64" tool.
-If you want to stick with PowerShell instead, the following command should do:
-
-  [System.Convert]::ToBase64String([System.Text.Encoding]::UTF8.GetBytes("<string>"))
-
-The string should be composed this way;
-- Determine your password
-- Put the phrase "Password" at the end of it, without a space.
-
-For example, if your password is "notarealpw" like in the answer file in this repo, then the string to encode should be "notarealpwPassword".
-The above string can be put into use for encoding this way:
-
-  UNIX base64 tool: echo notarealpwPassword | base64
-  PowerShell: [System.Convert]::ToBase64String([System.Text.Encoding]::UTF8.GetBytes("notarealpwPassword"))
-
-Once that's done, find your user account in the following path in autounattend.xml and replace the password in it;
-
-  /unattend/settings[pass="oobeSystem"]/component[name="Microsoft-Windows-Shell-Setup"]/UserAccounts/LocalAccounts/LocalAccount[wcm:action="add"]/Password/Value
-
-Do keep in mind that the "PlainText" key in the same block has to be be set to "false". Otherwise, you should put your password in the "Value" key in, well, plain text obviously.
+You can use and read the code in "encode-for-autounattend.sh" to accomplish this.
 
 Display name for use in the answer file
 ---------------------------------------

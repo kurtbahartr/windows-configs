@@ -7,6 +7,7 @@ This right here is my configuration for Windows, made for myself, documented for
 # File list
 
 - `autounattend.xml`: Answer file to bundle with installer disk to do the base configuration automatically.
+- `encode-for-autounattend.sh`: A simple Bash script to encode your password for non-plain-text use in autounattend.xml.
 - `winget-bundle.cmd`: Script to install as many apps as possible from Winget in batches. Winget is already smart enough to know when it's installing something, so the order of installed apps will be rather random once it's fully done.
 - `applist.txt`: Hand-written text file to list apps that aren't in `winget-bundle.cmd`. Those are either not in Winget repos or installed externally on purpose.
 - `mods.txt`: Documentation for post-install modifications I make to Windows that won't be handled by scripts or can't be done reliably by answer files.
@@ -66,6 +67,10 @@ This right here is my configuration for Windows, made for myself, documented for
   - Deletes `C:\Windows.old` if it exists.
   - (Planned) Pulls and installs the NVIDIA app if there's internet connection.
     - The NVIDIA app will then proceed to download and install the latest Game Ready driver for the NVIDIA GPU on your computer if it has one.
+
+## `encode-for-autounattend.sh`
+
+- Self-explanatory.
 
 ## `winget-bundle.cmd`
 
