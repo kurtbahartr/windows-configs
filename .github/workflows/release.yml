@@ -1,0 +1,91 @@
+name: Create Release on Version Update
+
+on:
+  push:
+    branches:
+      - 'master'
+
+jobs:
+  create-release:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Compare current release with VERSION file
+        id: compare_versions
+        run: |
+          if [ "$(gh release view -q '.tagName' --json tagName)" == "$(cat VERSION)" ]; then
+            echo "No new release to generate!"
+            echo "NEW_RELEASE=0" >> $GITHUB_ENV
+            exit
+          fi
+          # Apparently the tag still exists when the release is deleted from GitHub web interface...
+          # Also mock the exit status so that it always returns with code 0.
+          git push --delete origin refs/tags/$(cat VERSION) || true
+          echo "NEW_RELEASE=1" >> $GITHUB_ENV
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install dependencies
+        id: install_depends
+        run: |
+          sudo add-apt-repository universe
+          sudo apt update
+          sudo apt-get install -y xorriso
+
+      - name: Build ISO
+        id: build_iso
+        if: ${{ env.NEW_RELEASE == '1' }}
+        run: |
+          files="$(cat FILES.txt | tr '\n' ' ')"
+          xorriso -as mkisofs -r -J --joliet-long -V 'STDU_GH' -o STDU-GH.iso -partition_offset 16 $(files)
+
+      - name: Run catalog script
+        id: run_script
+        if: ${{ env.NEW_RELEASE == '1' }}
+        run: |
+          # Execute the script and save the output
+          if [ -x scripts/GetCatalog.sh ]; then
+            GH_TOKEN=$GH_TOKEN ./scripts/GetCatalog.sh > release_notes.md
+          else
+            echo "scripts/GetCatalog.sh is not executable or not found"
+            exit 1
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create tag
+        id: create_tag
+        if: ${{ env.NEW_RELEASE == '1' }}
+        run: |
+          # Generate a new tag based on the version
+          TAG_NAME=$(cat VERSION)
+          git tag $TAG_NAME
+          git push origin $TAG_NAME
+          echo "TAG_NAME=$TAG_NAME" >> $GITHUB_ENV
+
+      - name: Output release notes
+        id: output_release_notes
+        if: ${{ env.NEW_RELEASE == '1' }}
+        run: |
+          echo "RELEASE_NOTES<<EOF" >> $GITHUB_ENV
+          cat release_notes.md >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+
+      - name: Create release
+        if: ${{ env.NEW_RELEASE == '1' }}
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ env.TAG_NAME }}
+          release_name: ${{ env.TAG_NAME }}  # No "Release" prefix here
+          body: ${{ env.RELEASE_NOTES }}
+          draft: false
+          prerelease: false
+          files: STDU-GH.iso
+          fail_on_unmatched_files: true
+          make_latest: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
