@@ -94,7 +94,7 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ${{ env.ISO_PATH }}
-          asset_name: St-Denis Unattended - GitHub Edition ${{ env.TAG_NAME }}
+          asset_name: STDUnattended_GH_${{ env.TAG_NAME }}.iso
           asset_content_type: application/octet-stream
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
