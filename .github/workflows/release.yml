@@ -36,7 +36,7 @@ jobs:
           files="$(cat FILES.txt | tr '\n' ' ')"
           echo "The password for both Linda and Sara are \"notarealpw\"." > password.txt
           echo "See resources.txt to see how to change this within autounattend.xml." >> password.txt
-          xorriso -as mkisofs -r -J --joliet-long -V 'STDU_GH' -o STDU-GH.iso -partition_offset 16 $(files) password.txt
+          xorriso -as mkisofs -r -J --joliet-long -V 'STDU_GH' -o STDU-GH.iso -partition_offset 16 $files password.txt
           echo "ISO_PATH=$(pwd)/STDU-GH.iso" >> $GITHUB_ENV
 
       - name: Run catalog script
@@ -96,3 +96,5 @@ jobs:
           asset_path: ${{ env.ISO_PATH }}
           asset_name: St-Denis Unattended - GitHub Edition ${{ env.TAG_NAME }}
           asset_content_type: application/octet-stream
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
