@@ -70,21 +70,13 @@ jobs:
           git push origin $TAG_NAME
           echo "TAG_NAME=$TAG_NAME" >> $GITHUB_ENV
 
-      - name: Output release notes
-        id: output_release_notes
-        if: ${{ env.NEW_RELEASE == '1' }}
-        run: |
-          echo "RELEASE_NOTES<<EOF" >> $GITHUB_ENV
-          cat release_notes.md >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
-
       - name: Create release
         if: ${{ env.NEW_RELEASE == '1' }}
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ env.TAG_NAME }}
           release_name: ${{ env.TAG_NAME }}  # No "Release" prefix here
-          body: ${{ env.RELEASE_NOTES }}
+          body_path: release_notes.md
           draft: false
           prerelease: false
           files: STDU-GH.iso
