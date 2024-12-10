@@ -28,14 +28,23 @@ repo=$(gh repo view -q '.name' --json name)
 PREV_VERSION=$(gh release view -q '.tagName' --json tagName | sed 's/^V//')
 
 # Extract the content between the specified version and the next version, excluding the release URL and dashes
-awk -v header="$VERSION_HEADER" -v website="$website" -v owner="$owner" -v repo="$repo" '
-  BEGIN {found=0}
-  $0 == header {found=1; next}
-  /^Version/ && found {exit}
-  found && !($0 ~ website owner repo "/releases/tag/v.*" && $0 ~ /[0-9]+\.[0-9]+/) && !/^-----.*/ {print}
-' "$CHANGELOG_FILE"
+if [ -z "$PREV_VERSION" ]; then
+  awk -v header="$VERSION_HEADER" -v website="$website" -v owner="$owner" -v repo="$repo" '
+    $0 == header {next}
+    !($0 ~ website "/" owner "/" repo "/releases/tag/v.*" && $0 ~ /[0-9]+\.[0-9]+/) && !/^-----.*/ {print}
+  ' "$CHANGELOG_FILE"
+else
+  awk -v header="$VERSION_HEADER" -v website="$website" -v owner="$owner" -v repo="$repo" '
+    BEGIN {found=0}
+    $0 == header {found=1; next}
+    /^Version/ && found {exit}
+    found && !($0 ~ website owner repo "/releases/tag/v.*" && $0 ~ /[0-9]+\.[0-9]+/) && !/^-----.*/ {print}
+  ' "$CHANGELOG_FILE"
+fi
 
 # Add the "Full Changelog" line comparing the previous version with the current one only if a previous version exists
 if [[ -n "$PREV_VERSION" ]]; then
   echo "**Full Changelog**: $REMOTE_URL/compare/v$PREV_VERSION...v$VERSION"
+else
+  echo -e "\n**Full Changelog**: $REMOTE_URL/commits/v$VERSION"
 fi
