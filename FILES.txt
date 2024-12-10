@@ -1,0 +1,10 @@
+CHANGELOG.mkdn
+README.mkdn
+applist.txt
+autounattend.xml
+encode-for-autounattend.sh
+mods.txt
+resources.txt
+winget-bundle.cmd
+winget-bundle-optional.cmd
+winget-bundle-all.cmd

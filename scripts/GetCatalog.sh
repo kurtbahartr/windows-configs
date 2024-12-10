@@ -37,5 +37,5 @@ awk -v header="$VERSION_HEADER" -v website="$website" -v owner="$owner" -v repo=
 
 # Add the "Full Changelog" line comparing the previous version with the current one only if a previous version exists
 if [[ -n "$PREV_VERSION" ]]; then
-  echo "**Full Changelog**: $REMOTE_URL/compare/V$PREV_VERSION...V$VERSION"
+  echo "**Full Changelog**: $REMOTE_URL/compare/v$PREV_VERSION...v$VERSION"
 fi
