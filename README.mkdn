@@ -32,7 +32,7 @@ This right here is my configuration for Windows, made for myself, documented for
   - The portion **after the last space** and before the first unacceptable character (anything that's not a letter or number) is taken into consideration for the rest. For example,
     - If your motherboard reports the model as "Excalibur G770", the hostname will be `st-denis-g770`.
     - If your motherboard reports the model as "VMware20,1", the hostname will be `st-denis-vmware20`.
-  - The hostname is trimmed according for NetBIOS compliance for network name, much like how Windows does it internally.
+  - The hostname is trimmed accordingly for NetBIOS compliance for network name, much like how Windows does it internally.
     - If your hostname ends up being `st-denis-vmware20`, the network name will be `ST-DENIS-VMWARE`.
     - This doesn't impact the hostname you see on your local system and in Settings, it will still be `st-denis-vmware20`.
 - Configures the system pre-OOBE such that;
@@ -82,6 +82,8 @@ This right here is my configuration for Windows, made for myself, documented for
   - `winget/Microsoft.WindowsTerminal`
   - `msstore/"WhatsApp"`
 - There's also a `winget-bundle-optional.cmd` that will install all other apps I use myself that others might not need/want.
+  - `winget/Git.Git`
+  - `winget/GitHub.cli`
   - `winget/Google.Chrome`
   - `winget/Windscribe.Windscribe`
   - `msstore/"Samsung Cloud Assistant"`
