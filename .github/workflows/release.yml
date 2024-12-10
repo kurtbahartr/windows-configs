@@ -50,6 +50,9 @@ jobs:
           # Execute the script and save the output
           if [ -x scripts/GetCatalog.sh ]; then
             GH_TOKEN=$GH_TOKEN ./scripts/GetCatalog.sh > release_notes.md
+          elif [ -f scripts/GetCatalog.sh ]; then
+            chmod +x scripts/GetCatalog.sh
+            GH_TOKEN=$GH_TOKEN ./scripts/GetCatalog.sh > release_notes.md
           else
             echo "scripts/GetCatalog.sh is not executable or not found"
             exit 1
