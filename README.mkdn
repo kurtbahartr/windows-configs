@@ -4,6 +4,31 @@ This right here is my configuration for Windows, made for myself, documented for
 
 #### May alternatively be called "St-Denis Sane Unattend Configuration", or "St-DeSUCo" in short.
 
+# How to use
+
+Each approach has a different way to use this piece of work. Major known ones are covered here.
+
+## Virtual Machines
+
+1. Create the VM with the stock Windows 10/11 ISO, you may power it off when it boots into the setup.
+> VMware Workstation users must NOT power on the VM after it's been created if Easy Install is in place!
+2. Add a new CD drive and put the ISO in releases to it.
+> You may also pack your own by checking `.github/workflows/release.yml` Build ISO step in this repo.
+3. Boot the VM up and roll with it!
+
+## Rufus/Media Creation Tool/Manual file copy [Recommended for UEFI!]
+
+1. Flash the USB drive with the stock Windows 10/11 ISO.
+2. Mount the ISO and copy `autounattend.xml` to the root of the drive. For example, if your flash drive is in drive `E:`, you have to copy `autounattend.xml` there.
+3. Boot from the USB and roll with it!
+
+## Ventoy/`dd` in Linux/Direct ISO modification [Recommended for Legacy BIOS!]
+
+1. Download the ISO from Microsoft's website or create one using Media Creation Tool.
+2. Inject the `autounattend.xml` file into the ISO using the appropriate software. I use UltraISO on Windows.
+3. Copy the ISO to your Ventoy drive/Flash the ISO using `dd`.
+4. Boot into the setup and roll with it!
+
 # File list
 
 - `autounattend.xml`: Answer file to bundle with installer disk to do the base configuration automatically.
