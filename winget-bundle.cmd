@@ -7,6 +7,6 @@ start winget install "Speedtest by Ookla" --source msstore --accept-package-agre
 REM Spotify - Music and Podcasts
 start winget install 9NCBCSZSJRSB --source msstore --accept-package-agreements
 start winget install Valve.Steam --source winget
-start winget install "Unigram" --source msstore --accept-package-requirements
+start winget install "Unigram" --source msstore --accept-package-agreements
 start winget install Microsoft.WindowsTerminal --source winget
 start winget install "WhatsApp" --source msstore --accept-package-agreements
