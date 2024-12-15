@@ -1,8 +1,26 @@
 # Windows Configs
 
+> [!WARNING]
+> Starting 1.1.0-24H2, Windows Defender WILL detect the ISOs in the releases as a trojan, `Trojan:Script/Wacatac.B!ml`.
+> 
+> **THIS IS A FALSE POSITIVE AND IT HAS TO DO WITH THE FACT THAT THE ISO CONTAINS THE `sources` FOLDER TO MIMIC WINDOWS ISO LAYOUT!**
+> 
+> I know it doesn't have to do with anything else because I also scanned a faulty package of the same ISO where the `$OEM$` folder is on the root instead of its parent, the `sources` folder, and no detections were raised.
+> 
+> Should you have any concerns, I STRONGLY advice you to;
+> 1. Do some research about the specific detection: `Trojan:Script/Wacatac.B!ml`
+> 2. Check the contents of the ISO,
+> 3. Check the code of this repo, INCLUDING THE CODE FOR THE GITHUB WORKFLOW,
+> 4. Upload the ISO to VirusTotal,
+> 5. Stop using releases further than 1.0 and just take what you need in general.
+> 
+> If you're too limited on data for an upload a file this big to VrsTtl, [I did the work for you.](https://www.virustotal.com/gui/file/ab723f94a2c639e3fdb4b7613f5eba77ad9464512efb1defdac2c2693179dd73)
+> 
+> Any demands to fix this without clear help on how will be ignored/frowned upon. PRs are always welcome if YOU happen to have a way to get rid of this.
+
 This right here is my configuration for Windows, made for myself, documented for everyone.
 
-#### May alternatively be called "St-Denis Sane Unattend Configuration", or "St-DeSUCo" in short.
+###### May alternatively be called "St-Denis Sane Unattend Configuration", or "St-DeSUCo" in short.
 
 # How to use
 
