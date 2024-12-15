@@ -45,11 +45,14 @@ Each approach has a different way to use this piece of work. Major known ones ar
   - Locale configuration: English (Canada)
   - Time zone: Windows should detect this post-install when it's online.
   - Keyboard layouts;
-    - US in English (Canada) (Default)
+    - Canadian French in English (Canada) (Default)
+    - US in English (Canada)
     - Turkish Q in Turkish (Turkey)
-    - UK in English (United Kingdom)
+  - Licensing info;
+    - User name: Linda St-Denis
+    - Organization name: SpringWolf R&D Labs
 - Lets the user do the partitioning.
-- Computer name is set to `TEMPNAME` as a placeholder since a script will construct a hostname and set that one pre-OOBE.
+- Computer name is set to `ST-DENIS-TEMP` as a placeholder since a script will construct a hostname and set that one pre-OOBE.
 - Creates two password-locked administrator user accounts:
   - Linda (Display name: Linda St-Denis)
   - Sara (Display name: Sara St-Denis)
@@ -63,6 +66,9 @@ Each approach has a different way to use this piece of work. Major known ones ar
     - This doesn't impact the hostname you see on your local system and in Settings, it will still be `st-denis-vmware20`.
 - Configures the system pre-OOBE such that;
   - Hibernation is enabled if possible.
+  - Intel WiFi and Bluetooth drivers are installed for connectivity.
+    - You may also see their progress in their own setup windows.
+    - Even though it looks like it, AutoHotKey was NOT involved in the process of that setup. Intel provides a `/passive` switch in most of its setup programs that will basically run you through the setup on its own with the optimal defaults.
   - Device Guard is disabled for proper support for Type 2 hypervisors such as VirtualBox and VMware Workstation.
   - Hyper-V is disabled in BCD store for the same reason.
   - The network requirement bypass is enabled. (BypassNRO)
@@ -70,28 +76,30 @@ Each approach has a different way to use this piece of work. Major known ones ar
   - Windows Update will assume the system is active all the time and won't reboot the system when it thinks it's inactive.
   - Bitlocker automatic encryption is disabled. User may opt into encrypting their device manually through Manage Bitlocker Control Panel applet.
   - Microsoft Edge's annoying first-run experience is hidden, so that you won't have to go through it every time you create a new account or perform a new installation with the answer file.
-  - Sets default start menu pins to omit unnecessary bloat in pinned section on Windows 11. List of apps pinned (subject to change):
+  - Sets default start menu pins to omit unnecessary bloat in pinned section on Windows 11. List of apps pinned:
     - Microsoft Edge
     - Microsoft 365 (Office) UWP
+    - Word\*
+    - Excel\*
+    - PowerPoint\*
     - Outlook (New)
     - Microsoft Store
-    - Photos
     - Settings
     - Xbox
-    - Paint
-    - Calculator
-    - Clock
-    - Notepad
-    - Snipping Tool
-    - File Explorer
 - Configures the system on first logon of the first administrator (likely configured during OOBE or within the answer file) such that;
   - File extensions are enabled.
   - Hidden files are enabled, but protected system files are still kept hidden.
   - No unwanted app is installed automatically. I don't think you want some sane configuration only for Candy Crush to be installed automatically, right?
   - NumLock is enabled on boot regardless of BIOS settings.
-  - Deletes `C:\Windows.old` if it exists.
-  - (Planned) Pulls and installs the NVIDIA app if there's internet connection.
-    - The NVIDIA app will then proceed to download and install the latest Game Ready driver for the NVIDIA GPU on your computer if it has one.
+  - `C:\Windows.old` is deleted if it exists.
+- Configures each new user on their first logon such that;
+  - Search icon is set to "Icon only"
+  - Taskbar pins are replaced with the layout from Windows 11 RTM;
+    - File Explorer
+    - Microsoft Edge
+    - Microsoft Store
+
+\* Word, Excel and PowerPoint are a part of Microsoft Office suite and are NOT preinstalled. These default pins will be placed on new accounts only if that suite was present at the time the account was created.
 
 ## `encode-for-autounattend.sh`
 

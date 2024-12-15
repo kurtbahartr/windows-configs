@@ -33,11 +33,23 @@ jobs:
         id: build_iso
         if: ${{ env.NEW_RELEASE == '1' }}
         run: |
+          mkdir isoroot
           files="$(cat FILES.txt | tr '\n' ' ')"
+          cp -r $files isoroot/
+          pushd isoroot
           echo "The password for both Linda and Sara are \"notarealpw\"." > password.txt
           echo "See resources.txt to see how to change this within autounattend.xml." >> password.txt
-          xorriso -as mkisofs -r -J --joliet-long -V 'STDU_GH' -o STDU-GH.iso -partition_offset 16 $files password.txt
+          mkdir -p 'sources/$OEM$/$$/Setup/Files/IWLWiFi'
+          pushd 'sources/$OEM$/$$/Setup/Files/IWLWiFi'
+          for link in $iwlwifi_drvs; do
+            curl --remote-name $link
+          done
+          popd
+          popd
+          xorriso -as mkisofs -r -J --joliet-long -V 'STDU_GH' -o STDU-GH.iso -partition_offset 16 isoroot
           echo "ISO_PATH=$(pwd)/STDU-GH.iso" >> $GITHUB_ENV
+        env:
+          iwlwifi_drvs: https://downloadmirror.intel.com/837889/BT-23.90.0-64UWD-Win10-Win11.exe https://downloadmirror.intel.com/837761/WiFi-23.90.0-Driver64-Win10-Win11.exe
 
       - name: Run catalog script
         id: run_script

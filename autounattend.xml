@@ -1,103 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
-<unattend xmlns="urn:schemas-microsoft-com:unattend" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State">
-	<settings pass="offlineServicing"></settings>
-	<settings pass="windowsPE">
-		<component name="Microsoft-Windows-International-Core-WinPE" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
-			<SetupUILanguage>
-				<UILanguage>en-GB</UILanguage>
-			</SetupUILanguage>
-			<InputLocale>1009:00000409;0809:00000809;041f:0000041f</InputLocale>
-			<SystemLocale>en-CA</SystemLocale>
-			<UILanguage>en-GB</UILanguage>
-			<UserLocale>en-CA</UserLocale>
-		</component>
-		<component name="Microsoft-Windows-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
-			<UserData>
-				<ProductKey>
-					<Key>VK7JG-NPHTM-C97JM-9MPGT-3V66T</Key>
-				</ProductKey>
-				<AcceptEula>true</AcceptEula>
-			</UserData>
-		</component>
-	</settings>
-	<settings pass="generalize"></settings>
-	<settings pass="specialize">
-		<component name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
-			<ComputerName>TEMPNAME</ComputerName>
-		</component>
-		<component name="Microsoft-Windows-Deployment" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
-			<RunSynchronous>
-				<RunSynchronousCommand wcm:action="add">
-					<Order>1</Order>
-					<Path>powershell.exe -NoProfile -Command "$xml = [xml]::new(); $xml.Load('C:\Windows\Panther\unattend.xml'); $sb = [scriptblock]::Create( $xml.unattend.Extensions.ExtractScript ); Invoke-Command -ScriptBlock $sb -ArgumentList $xml;"</Path>
-				</RunSynchronousCommand>
-				<RunSynchronousCommand wcm:action="add">
-					<Order>2</Order>
-					<Path>powershell.exe -NoProfile -Command "Get-Content -LiteralPath 'C:\Windows\Setup\Scripts\Specialize.ps1' -Raw | Invoke-Expression;"</Path>
-				</RunSynchronousCommand>
-				<RunSynchronousCommand wcm:action="add">
-					<Order>3</Order>
-					<Path>reg.exe load "HKU\DefaultUser" "C:\Users\Default\NTUSER.DAT"</Path>
-				</RunSynchronousCommand>
-				<RunSynchronousCommand wcm:action="add">
-					<Order>4</Order>
-					<Path>powershell.exe -NoProfile -Command "Get-Content -LiteralPath 'C:\Windows\Setup\Scripts\DefaultUser.ps1' -Raw | Invoke-Expression;"</Path>
-				</RunSynchronousCommand>
-				<RunSynchronousCommand wcm:action="add">
-					<Order>5</Order>
-					<Path>reg.exe unload "HKU\DefaultUser"</Path>
-				</RunSynchronousCommand>
-			</RunSynchronous>
-		</component>
-	</settings>
-	<settings pass="auditSystem"></settings>
-	<settings pass="auditUser"></settings>
-	<settings pass="oobeSystem">
-		<component name="Microsoft-Windows-International-Core" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
-			<InputLocale>1009:00000409;0809:00000809;041f:0000041f</InputLocale>
-			<SystemLocale>en-CA</SystemLocale>
-			<UILanguage>en-GB</UILanguage>
-			<UserLocale>en-CA</UserLocale>
-		</component>
-		<component name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
-			<UserAccounts>
-				<LocalAccounts>
-					<LocalAccount wcm:action="add">
-						<Name>Sara</Name>
-						<DisplayName>Sara St-Denis</DisplayName>
-						<Group>Administrators</Group>
-						<Password>
-							<Value>bgBvAHQAYQByAGUAYQBsAHAAdwBQAGEAcwBzAHcAbwByAGQA</Value>
-							<PlainText>false</PlainText>
-						</Password>
-					</LocalAccount>
-					<LocalAccount wcm:action="add">
-						<Name>Linda</Name>
-						<DisplayName>Linda St-Denis</DisplayName>
-						<Group>Administrators</Group>
-						<Password>
-							<Value>bgBvAHQAYQByAGUAYQBsAHAAdwBQAGEAcwBzAHcAbwByAGQA</Value>
-							<PlainText>false</PlainText>
-						</Password>
-					</LocalAccount>
-				</LocalAccounts>
-			</UserAccounts>
-			<OOBE>
-				<ProtectYourPC>1</ProtectYourPC>
-				<HideEULAPage>true</HideEULAPage>
-				<HideWirelessSetupInOOBE>false</HideWirelessSetupInOOBE>
-				<HideOnlineAccountScreens>false</HideOnlineAccountScreens>
-			</OOBE>
-			<FirstLogonCommands>
-				<SynchronousCommand wcm:action="add">
-					<Order>1</Order>
-					<CommandLine>powershell.exe -NoProfile -Command "Get-Content -LiteralPath 'C:\Windows\Setup\Scripts\FirstLogon.ps1' -Raw | Invoke-Expression;"</CommandLine>
-				</SynchronousCommand>
-			</FirstLogonCommands>
-		</component>
-	</settings>
-	<Extensions xmlns="https://schneegans.de/windows/unattend-generator/">
-		<ExtractScript>
+<unattend xmlns="urn:schemas-microsoft-com:unattend">
+    <settings pass="windowsPE">
+        <component name="Microsoft-Windows-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <ComplianceCheck>
+                <DisplayReport>OnError</DisplayReport>
+            </ComplianceCheck>
+            <Diagnostics>
+                <OptIn>true</OptIn>
+            </Diagnostics>
+            <DiskConfiguration>
+                <DisableEncryptedDiskProvisioning>true</DisableEncryptedDiskProvisioning>
+                <WillShowUI>OnError</WillShowUI>
+            </DiskConfiguration>
+            <UserData>
+                <ProductKey>
+                    <Key>VK7JG-NPHTM-C97JM-9MPGT-3V66T</Key>
+                    <WillShowUI>OnError</WillShowUI>
+                </ProductKey>
+                <AcceptEula>true</AcceptEula>
+                <FullName>Linda St-Denis</FullName>
+                <Organization>SpringWolf R&amp;D Labs</Organization>
+            </UserData>
+            <UseConfigurationSet>true</UseConfigurationSet>
+        </component>
+        <component name="Microsoft-Windows-International-Core-WinPE" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <SetupUILanguage>
+                <UILanguage>en-GB</UILanguage>
+            </SetupUILanguage>
+            <InputLocale>1009:00001009;1009:00000409;041f:0000041f</InputLocale>
+            <SystemLocale>en-CA</SystemLocale>
+            <UILanguage>en-GB</UILanguage>
+            <UILanguageFallback>en-US</UILanguageFallback>
+            <UserLocale>en-CA</UserLocale>
+        </component>
+    </settings>
+    <settings pass="specialize">
+        <component name="Microsoft-Windows-Deployment" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <RunSynchronous>
+                <RunSynchronousCommand wcm:action="add">
+                    <Order>1</Order>
+                    <Path>powershell.exe -NoProfile -Command &quot;$xml = [xml]::new(); $xml.Load(&apos;C:\Windows\Panther\unattend.xml&apos;); $sb = [scriptblock]::Create( $xml.unattend.Extensions.ExtractScript ); Invoke-Command -ScriptBlock $sb -ArgumentList $xml;&quot;</Path>
+                    <Description>Hostname and stuff from within the unattend file</Description>
+                </RunSynchronousCommand>
+                <RunSynchronousCommand wcm:action="add">
+                    <Order>2</Order>
+                    <Path>powershell.exe -NoProfile -Command &quot;Get-Content -LiteralPath &apos;C:\Windows\Setup\Scripts\Specialize.ps1&apos; -Raw | Invoke-Expression;&quot;</Path>
+                    <Description>Tweaks to system for saner config</Description>
+                </RunSynchronousCommand>
+                <RunSynchronousCommand wcm:action="add">
+                    <Order>3</Order>
+                    <Path>reg.exe load &quot;HKU\DefaultUser&quot; &quot;C:\Users\Default\NTUSER.DAT&quot;</Path>
+                </RunSynchronousCommand>
+                <RunSynchronousCommand wcm:action="add">
+                    <Order>4</Order>
+                    <Path>powershell.exe -NoProfile -Command &quot;Get-Content -LiteralPath &apos;C:\Windows\Setup\Scripts\DefaultUser.ps1&apos; -Raw | Invoke-Expression;&quot;</Path>
+                    <Description>Tweaks to the system for each one of the user</Description>
+                </RunSynchronousCommand>
+                <RunSynchronousCommand wcm:action="add">
+                    <Order>5</Order>
+                    <Path>reg.exe unload &quot;HKU\DefaultUser&quot;</Path>
+                </RunSynchronousCommand>
+            </RunSynchronous>
+        </component>
+        <component name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <ComputerName>ST-DENIS-TEMP</ComputerName>
+        </component>
+    </settings>
+    <settings pass="oobeSystem">
+        <component name="Microsoft-Windows-International-Core" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <InputLocale>1009:00001009;1009:00000409;041f:0000041f</InputLocale>
+            <SystemLocale>en-CA</SystemLocale>
+            <UILanguage>en-GB</UILanguage>
+            <UILanguageFallback>en-US</UILanguageFallback>
+            <UserLocale>en-CA</UserLocale>
+        </component>
+        <component name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <FirstLogonCommands>
+                <SynchronousCommand wcm:action="add">
+                    <CommandLine>powershell.exe -NoProfile -Command &quot;Get-Content -LiteralPath &apos;C:\Windows\Setup\Scripts\FirstLogon.ps1&apos; -Raw | Invoke-Expression;&quot;</CommandLine>
+                    <Order>1</Order>
+                    <Description>Remove Windows.old on first user to log on</Description>
+                </SynchronousCommand>
+            </FirstLogonCommands>
+            <OOBE>
+                <HideEULAPage>true</HideEULAPage>
+                <HideOnlineAccountScreens>true</HideOnlineAccountScreens>
+                <HideWirelessSetupInOOBE>false</HideWirelessSetupInOOBE>
+                <ProtectYourPC>1</ProtectYourPC>
+            </OOBE>
+            <UserAccounts>
+                <LocalAccounts>
+                    <LocalAccount wcm:action="add">
+                        <Password>
+                            <Value>bgBvAHQAYQByAGUAYQBsAHAAdwBQAGEAcwBzAHcAbwByAGQA</Value>
+                            <PlainText>false</PlainText>
+                        </Password>
+                        <DisplayName>Sara St-Denis</DisplayName>
+                        <Group>Administrators</Group>
+                        <Name>Sara</Name>
+                    </LocalAccount>
+                    <LocalAccount wcm:action="add">
+                        <Password>
+                            <Value>bgBvAHQAYQByAGUAYQBsAHAAdwBQAGEAcwBzAHcAbwByAGQA</Value>
+                            <PlainText>false</PlainText>
+                        </Password>
+                        <DisplayName>Linda St-Denis</DisplayName>
+                        <Group>Administrators</Group>
+                        <Name>Linda</Name>
+                    </LocalAccount>
+                </LocalAccounts>
+            </UserAccounts>
+        </component>
+    </settings>
+    <Extensions xmlns="https://github.com/kurtbahartr/windows-configs/">
+        <ExtractScript>
 param(
     [xml] $Document
 );
@@ -120,13 +136,13 @@ foreach( $file in $Document.unattend.Extensions.File ) {
     }
 }
 		</ExtractScript>
-		<File path="C:\Windows\Setup\Scripts\GetComputerName.ps1" transformation="Text">
+        <File path="C:\Windows\Setup\Scripts\GetComputerName.ps1" transformation="Text">
 $full_model = (Get-CimInstance -ClassName Win32_ComputerSystem | Select-Object -Property Model | Out-String -Stream | Select-Object -Last 3)
 $portion_index = ($full_model.Trim().Split(' ').Length - 3)
 $host_string = [regex]::Replace($($full_model.Trim().Split(' ')[$portion_index].toLower()), "[^a-zA-Z0-9\s].*", "")
 return 'st-denis-{0:D3}' -f ( $host_string );
 		</File>
-		<File path="C:\Windows\Setup\Scripts\SetComputerName.ps1" transformation="Text">
+        <File path="C:\Windows\Setup\Scripts\SetComputerName.ps1" transformation="Text">
 $ErrorActionPreference = 'Stop';
 Set-StrictMode -Version 'Latest';
 &amp; {
@@ -172,7 +188,7 @@ Set-StrictMode -Version 'Latest';
 	}
 } *&gt;&amp;1 &gt;&gt; 'C:\Windows\Setup\Scripts\SetComputerName.log';
 		</File>
-		<File path="C:\Windows\Setup\Scripts\MoveActiveHours.vbs" transformation="Text">
+        <File path="C:\Windows\Setup\Scripts\MoveActiveHours.vbs" transformation="Text">
 HKLM = &amp;H80000002
 key = "SOFTWARE\Microsoft\WindowsUpdate\UX\Settings"
 Set reg = GetObject("winmgmts://./root/default:StdRegProv")
@@ -181,7 +197,7 @@ reg.SetDWORDValue HKLM, key, "ActiveHoursStart", ( current + 23 ) Mod 24
 reg.SetDWORDValue HKLM, key, "ActiveHoursEnd", ( current + 11 ) Mod 24
 reg.SetDWORDValue HKLM, key, "SmartActiveHoursState", 2
 		</File>
-		<File path="C:\Windows\Setup\Scripts\MoveActiveHours.xml" transformation="Text">
+        <File path="C:\Windows\Setup\Scripts\MoveActiveHours.xml" transformation="Text">
 &lt;Task version="1.2" xmlns="http://schemas.microsoft.com/windows/2004/02/mit/task"&gt;
 	&lt;Triggers&gt;
 		&lt;BootTrigger&gt;
@@ -232,49 +248,37 @@ reg.SetDWORDValue HKLM, key, "SmartActiveHoursState", 2
 	&lt;/Actions&gt;
 &lt;/Task&gt;
 		</File>
-		<File path="C:\Windows\Setup\Scripts\SetStartPins.ps1" transformation="Text">
+        <File path="C:\Windows\Setup\Scripts\SetStartPins.ps1" transformation="Text">
 $json = '{
-    "pinnedList":  [
-                       {
-                           "desktopAppLink":  "%ALLUSERSPROFILE%\\Microsoft\\Windows\\Start Menu\\Programs\\Microsoft Edge.lnk"
-                       },
-                       {
-                           "packagedAppId":  "Microsoft.MicrosoftOfficeHub_8wekyb3d8bbwe!Microsoft.MicrosoftOfficeHub"
-                       },
-                       {
-                           "packagedAppId":  "Microsoft.OutlookforWindows_8wekyb3d8bbwe!Microsoft.OutlookforWindows"
-                       },
-                       {
-                           "packagedAppId":  "Microsoft.WindowsStore_8wekyb3d8bbwe!App"
-                       },
-                       {
-                           "packagedAppId":  "Microsoft.Windows.Photos_8wekyb3d8bbwe!App"
-                       },
-                       {
-                           "packagedAppId":  "windows.immersivecontrolpanel_cw5n1h2txyewy!microsoft.windows.immersivecontrolpanel"
-                       },
-                       {
-                           "packagedAppId":  "Microsoft.GamingApp_8wekyb3d8bbwe!Microsoft.Xbox.App"
-                       },
-                       {
-                           "packagedAppId":  "Microsoft.Paint_8wekyb3d8bbwe!App"
-                       },
-                       {
-                           "packagedAppId":  "Microsoft.WindowsCalculator_8wekyb3d8bbwe!App"
-                       },
-                       {
-                           "packagedAppId":  "Microsoft.WindowsAlarms_8wekyb3d8bbwe!App"
-                       },
-                       {
-                           "packagedAppId":  "Microsoft.WindowsNotepad_8wekyb3d8bbwe!App"
-                       },
-                       {
-                           "packagedAppId":  "Microsoft.ScreenSketch_8wekyb3d8bbwe!App"
-                       },
-                       {
-                           "desktopAppLink":  "%APPDATA%\\Microsoft\\Windows\\Start Menu\\Programs\\File Explorer.lnk"
-                       }
-                   ]
+    "pinnedList": [
+        {
+            "desktopAppLink": "%ALLUSERSPROFILE%\\Microsoft\\Windows\\Start Menu\\Programs\\Microsoft Edge.lnk"
+        },
+        {
+            "packagedAppId": "Microsoft.MicrosoftOfficeHub_8wekyb3d8bbwe!Microsoft.MicrosoftOfficeHub"
+        },
+        {
+            "desktopAppLink": "%ALLUSERSPROFILE%\\Microsoft\\Windows\\Start Menu\\Programs\\Word.lnk"
+        },
+        {
+            "desktopAppLink": "%ALLUSERSPROFILE%\\Microsoft\\Windows\\Start Menu\\Programs\\Excel.lnk"
+        },
+        {
+            "desktopAppLink": "%ALLUSERSPROFILE%\\Microsoft\\Windows\\Start Menu\\Programs\\PowerPoint.lnk"
+        },
+        {
+            "packagedAppId": "Microsoft.OutlookforWindows_8wekyb3d8bbwe!Microsoft.OutlookforWindows"
+        },
+        {
+            "packagedAppId": "Microsoft.WindowsStore_8wekyb3d8bbwe!App"
+        },
+        {
+            "packagedAppId": "windows.immersivecontrolpanel_cw5n1h2txyewy!microsoft.windows.immersivecontrolpanel"
+        },
+        {
+            "packagedAppId": "Microsoft.GamingApp_8wekyb3d8bbwe!Microsoft.Xbox.App"
+        }
+    ]
 }';
 if( [System.Environment]::OSVersion.Version.Build -lt 20000 ) {
 	return;
@@ -283,23 +287,262 @@ $key = 'Registry::HKLM\SOFTWARE\Microsoft\PolicyManager\current\device\Start';
 New-Item -Path $key -ItemType 'Directory' -ErrorAction 'SilentlyContinue';
 Set-ItemProperty -LiteralPath $key -Name 'ConfigureStartPins' -Value $json -Type 'String';
 		</File>
-		<File path="C:\Windows\Setup\Scripts\unattend-01.cmd" transformation="Text">
+        <File path="C:\Windows\Setup\Scripts\unattend-01.cmd" transformation="Text">
 powercfg -h on
 		</File>
-		<File path="C:\Windows\Setup\Scripts\unattend-02.cmd" transformation="Text">
+        <File path="C:\Windows\Setup\Scripts\unattend-02.cmd" transformation="Text">
 bcdedit /set hypervisorlaunchtype off
 		</File>
-		<File path="C:\Windows\Setup\Scripts\unattend-03.reg" transformation="Text">
+        <File path="C:\Windows\Setup\Scripts\unattend-03.reg" transformation="Text">
 Windows Registry Editor Version 5.00
 
 [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\DeviceGuard]
 "EnableVirtualizationBasedSecurity"=dword:00000000
 		</File>
-		<File path="C:\Windows\Setup\Scripts\Specialize.ps1" transformation="Text">
+        <File path="C:\Windows\Setup\Scripts\unattend-04.reg" transformation="Text">
+Windows Registry Editor Version 5.00
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Taskband]
+"FavoritesResolve"=hex:31,03,00,00,4c,00,00,00,01,14,02,00,00,00,00,00,c0,00,\
+  00,00,00,00,00,46,83,00,80,00,20,00,00,00,c0,b1,af,9f,f4,4e,db,01,44,53,b2,\
+  c2,f4,4e,db,01,25,b3,7a,4d,05,84,da,01,97,01,00,00,00,00,00,00,01,00,00,00,\
+  00,00,00,00,00,00,00,00,00,00,00,00,a0,01,3a,00,1f,80,c8,27,34,1f,10,5c,10,\
+  42,aa,03,2e,e4,52,87,d6,68,26,00,01,00,26,00,ef,be,12,00,00,00,bf,08,44,7a,\
+  f2,4e,db,01,bf,7e,c0,85,f2,4e,db,01,7e,9b,af,c2,f4,4e,db,01,14,00,56,00,31,\
+  00,00,00,00,00,8f,59,25,6b,11,00,54,61,73,6b,42,61,72,00,40,00,09,00,04,00,\
+  ef,be,8f,59,24,69,8f,59,25,6b,2e,00,00,00,72,e8,01,00,00,00,02,00,00,00,00,\
+  00,00,00,00,00,00,00,00,00,00,00,82,e3,05,01,54,00,61,00,73,00,6b,00,42,00,\
+  61,00,72,00,00,00,16,00,0e,01,32,00,97,01,00,00,81,58,c4,3a,20,00,46,49,4c,\
+  45,45,58,7e,31,2e,4c,4e,4b,00,00,7c,00,09,00,04,00,ef,be,8f,59,05,6b,8f,59,\
+  25,6b,2e,00,00,00,99,e6,01,00,00,00,03,00,00,00,00,00,00,00,00,00,52,00,00,\
+  00,00,00,db,dc,91,00,46,00,69,00,6c,00,65,00,20,00,45,00,78,00,70,00,6c,00,\
+  6f,00,72,00,65,00,72,00,2e,00,6c,00,6e,00,6b,00,00,00,40,00,73,00,68,00,65,\
+  00,6c,00,6c,00,33,00,32,00,2e,00,64,00,6c,00,6c,00,2c,00,2d,00,32,00,32,00,\
+  30,00,36,00,37,00,00,00,1c,00,22,00,00,00,1e,00,ef,be,02,00,55,00,73,00,65,\
+  00,72,00,50,00,69,00,6e,00,6e,00,65,00,64,00,00,00,1c,00,12,00,00,00,2b,00,\
+  ef,be,b2,c7,b0,c2,f4,4e,db,01,1c,00,42,00,00,00,1d,00,ef,be,02,00,4d,00,69,\
+  00,63,00,72,00,6f,00,73,00,6f,00,66,00,74,00,2e,00,57,00,69,00,6e,00,64,00,\
+  6f,00,77,00,73,00,2e,00,45,00,78,00,70,00,6c,00,6f,00,72,00,65,00,72,00,00,\
+  00,1c,00,00,00,9a,00,00,00,1c,00,00,00,01,00,00,00,1c,00,00,00,2d,00,00,00,\
+  00,00,00,00,99,00,00,00,11,00,00,00,03,00,00,00,ba,92,21,cc,10,00,00,00,00,\
+  43,3a,5c,55,73,65,72,73,5c,74,65,74,5c,41,70,70,44,61,74,61,5c,52,6f,61,6d,\
+  69,6e,67,5c,4d,69,63,72,6f,73,6f,66,74,5c,49,6e,74,65,72,6e,65,74,20,45,78,\
+  70,6c,6f,72,65,72,5c,51,75,69,63,6b,20,4c,61,75,6e,63,68,5c,55,73,65,72,20,\
+  50,69,6e,6e,65,64,5c,54,61,73,6b,42,61,72,5c,46,69,6c,65,20,45,78,70,6c,6f,\
+  72,65,72,2e,6c,6e,6b,00,00,60,00,00,00,03,00,00,a0,58,00,00,00,00,00,00,00,\
+  73,74,2d,64,65,6e,69,73,2d,67,37,37,30,00,00,00,d4,1f,84,1e,06,fb,a7,47,a2,\
+  a0,2d,bf,83,94,fc,8e,a0,32,ac,15,e3,ba,ef,11,a9,a5,f4,c8,8a,14,60,4f,d4,1f,\
+  84,1e,06,fb,a7,47,a2,a0,2d,bf,83,94,fc,8e,a0,32,ac,15,e3,ba,ef,11,a9,a5,f4,\
+  c8,8a,14,60,4f,45,00,00,00,09,00,00,a0,39,00,00,00,31,53,50,53,b1,16,6d,44,\
+  ad,8d,70,48,a7,48,40,2e,a4,3d,78,8c,1d,00,00,00,68,00,00,00,00,48,00,00,00,\
+  78,ec,d2,80,8b,d0,17,46,b6,04,cd,01,a0,8a,b3,8e,00,00,00,00,00,00,00,00,00,\
+  00,00,00,e4,02,00,00,4c,00,00,00,01,14,02,00,00,00,00,00,c0,00,00,00,00,00,\
+  00,46,83,00,80,00,20,00,00,00,ac,e5,f5,c9,f4,4e,db,01,a6,b1,fa,c9,f4,4e,db,\
+  01,90,1a,14,7d,ef,4e,db,01,86,09,00,00,00,00,00,00,01,00,00,00,00,00,00,00,\
+  00,00,00,00,00,00,00,00,52,01,3a,00,1f,80,c8,27,34,1f,10,5c,10,42,aa,03,2e,\
+  e4,52,87,d6,68,26,00,01,00,26,00,ef,be,12,00,00,00,bf,08,44,7a,f2,4e,db,01,\
+  bf,7e,c0,85,f2,4e,db,01,ac,e5,f5,c9,f4,4e,db,01,14,00,56,00,31,00,00,00,00,\
+  00,8f,59,25,6b,11,00,54,61,73,6b,42,61,72,00,40,00,09,00,04,00,ef,be,8f,59,\
+  24,69,8f,59,25,6b,2e,00,00,00,72,e8,01,00,00,00,02,00,00,00,00,00,00,00,00,\
+  00,00,00,00,00,00,00,82,e3,05,01,54,00,61,00,73,00,6b,00,42,00,61,00,72,00,\
+  00,00,16,00,c0,00,32,00,86,09,00,00,8f,59,ed,65,20,00,4d,49,43,52,4f,53,7e,\
+  31,2e,4c,4e,4b,00,00,56,00,09,00,04,00,ef,be,8f,59,2b,6b,8f,59,2b,6b,2e,00,\
+  00,00,f3,ee,01,00,00,00,01,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,70,\
+  68,2e,01,4d,00,69,00,63,00,72,00,6f,00,73,00,6f,00,66,00,74,00,20,00,45,00,\
+  64,00,67,00,65,00,2e,00,6c,00,6e,00,6b,00,00,00,1c,00,22,00,00,00,1e,00,ef,\
+  be,02,00,55,00,73,00,65,00,72,00,50,00,69,00,6e,00,6e,00,65,00,64,00,00,00,\
+  1c,00,12,00,00,00,2b,00,ef,be,17,3b,f8,c9,f4,4e,db,01,1c,00,1a,00,00,00,1d,\
+  00,ef,be,02,00,4d,00,53,00,45,00,64,00,67,00,65,00,00,00,1c,00,00,00,9b,00,\
+  00,00,1c,00,00,00,01,00,00,00,1c,00,00,00,2d,00,00,00,00,00,00,00,9a,00,00,\
+  00,11,00,00,00,03,00,00,00,ba,92,21,cc,10,00,00,00,00,43,3a,5c,55,73,65,72,\
+  73,5c,74,65,74,5c,41,70,70,44,61,74,61,5c,52,6f,61,6d,69,6e,67,5c,4d,69,63,\
+  72,6f,73,6f,66,74,5c,49,6e,74,65,72,6e,65,74,20,45,78,70,6c,6f,72,65,72,5c,\
+  51,75,69,63,6b,20,4c,61,75,6e,63,68,5c,55,73,65,72,20,50,69,6e,6e,65,64,5c,\
+  54,61,73,6b,42,61,72,5c,4d,69,63,72,6f,73,6f,66,74,20,45,64,67,65,2e,6c,6e,\
+  6b,00,00,60,00,00,00,03,00,00,a0,58,00,00,00,00,00,00,00,73,74,2d,64,65,6e,\
+  69,73,2d,67,37,37,30,00,00,00,d4,1f,84,1e,06,fb,a7,47,a2,a0,2d,bf,83,94,fc,\
+  8e,ba,32,ac,15,e3,ba,ef,11,a9,a5,f4,c8,8a,14,60,4f,d4,1f,84,1e,06,fb,a7,47,\
+  a2,a0,2d,bf,83,94,fc,8e,ba,32,ac,15,e3,ba,ef,11,a9,a5,f4,c8,8a,14,60,4f,45,\
+  00,00,00,09,00,00,a0,39,00,00,00,31,53,50,53,b1,16,6d,44,ad,8d,70,48,a7,48,\
+  40,2e,a4,3d,78,8c,1d,00,00,00,68,00,00,00,00,48,00,00,00,78,ec,d2,80,8b,d0,\
+  17,46,b6,04,cd,01,a0,8a,b3,8e,00,00,00,00,00,00,00,00,00,00,00,00,aa,06,00,\
+  00,4c,00,00,00,01,14,02,00,00,00,00,00,c0,00,00,00,00,00,00,46,81,00,80,00,\
+  00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,\
+  00,00,00,00,00,00,00,00,00,00,00,01,00,00,00,00,00,00,00,00,00,00,00,00,00,\
+  00,00,58,06,14,00,1f,80,9b,d4,34,42,45,02,f3,4d,b7,80,38,93,94,34,56,e1,42,\
+  06,00,00,aa,05,41,50,50,53,98,05,08,00,03,00,00,00,00,00,00,00,5f,02,00,00,\
+  31,53,50,53,55,28,4c,9f,79,9f,39,4b,a8,d0,e1,d4,2d,e1,d5,f3,5d,00,00,00,11,\
+  00,00,00,00,1f,00,00,00,25,00,00,00,4d,00,69,00,63,00,72,00,6f,00,73,00,6f,\
+  00,66,00,74,00,2e,00,57,00,69,00,6e,00,64,00,6f,00,77,00,73,00,53,00,74,00,\
+  6f,00,72,00,65,00,5f,00,38,00,77,00,65,00,6b,00,79,00,62,00,33,00,64,00,38,\
+  00,62,00,62,00,77,00,65,00,00,00,00,00,11,00,00,00,27,00,00,00,00,0b,00,00,\
+  00,00,00,00,00,11,00,00,00,0e,00,00,00,00,13,00,00,00,01,00,00,00,85,00,00,\
+  00,15,00,00,00,00,1f,00,00,00,39,00,00,00,4d,00,69,00,63,00,72,00,6f,00,73,\
+  00,6f,00,66,00,74,00,2e,00,57,00,69,00,6e,00,64,00,6f,00,77,00,73,00,53,00,\
+  74,00,6f,00,72,00,65,00,5f,00,32,00,32,00,34,00,30,00,31,00,2e,00,31,00,34,\
+  00,30,00,30,00,2e,00,36,00,2e,00,30,00,5f,00,78,00,36,00,34,00,5f,00,5f,00,\
+  38,00,77,00,65,00,6b,00,79,00,62,00,33,00,64,00,38,00,62,00,62,00,77,00,65,\
+  00,00,00,00,00,65,00,00,00,05,00,00,00,00,1f,00,00,00,29,00,00,00,4d,00,69,\
+  00,63,00,72,00,6f,00,73,00,6f,00,66,00,74,00,2e,00,57,00,69,00,6e,00,64,00,\
+  6f,00,77,00,73,00,53,00,74,00,6f,00,72,00,65,00,5f,00,38,00,77,00,65,00,6b,\
+  00,79,00,62,00,33,00,64,00,38,00,62,00,62,00,77,00,65,00,21,00,41,00,70,00,\
+  70,00,00,00,00,00,bd,00,00,00,0f,00,00,00,00,1f,00,00,00,56,00,00,00,43,00,\
+  3a,00,5c,00,50,00,72,00,6f,00,67,00,72,00,61,00,6d,00,20,00,46,00,69,00,6c,\
+  00,65,00,73,00,5c,00,57,00,69,00,6e,00,64,00,6f,00,77,00,73,00,41,00,70,00,\
+  70,00,73,00,5c,00,4d,00,69,00,63,00,72,00,6f,00,73,00,6f,00,66,00,74,00,2e,\
+  00,57,00,69,00,6e,00,64,00,6f,00,77,00,73,00,53,00,74,00,6f,00,72,00,65,00,\
+  5f,00,32,00,32,00,34,00,30,00,31,00,2e,00,31,00,34,00,30,00,30,00,2e,00,36,\
+  00,2e,00,30,00,5f,00,78,00,36,00,34,00,5f,00,5f,00,38,00,77,00,65,00,6b,00,\
+  79,00,62,00,33,00,64,00,38,00,62,00,62,00,77,00,65,00,00,00,1d,00,00,00,20,\
+  00,00,00,00,48,00,00,00,0e,b1,2f,32,7a,8f,4a,42,bc,85,4c,6a,69,2e,97,a7,00,\
+  00,00,00,8a,02,00,00,31,53,50,53,4d,0b,d4,86,69,90,3c,44,81,9a,2a,54,09,0d,\
+  cc,ec,55,00,00,00,0c,00,00,00,00,1f,00,00,00,21,00,00,00,41,00,73,00,73,00,\
+  65,00,74,00,73,00,5c,00,41,00,70,00,70,00,54,00,69,00,6c,00,65,00,73,00,5c,\
+  00,53,00,74,00,6f,00,72,00,65,00,4d,00,65,00,64,00,54,00,69,00,6c,00,65,00,\
+  2e,00,70,00,6e,00,67,00,00,00,00,00,55,00,00,00,02,00,00,00,00,1f,00,00,00,\
+  21,00,00,00,41,00,73,00,73,00,65,00,74,00,73,00,5c,00,41,00,70,00,70,00,54,\
+  00,69,00,6c,00,65,00,73,00,5c,00,53,00,74,00,6f,00,72,00,65,00,41,00,70,00,\
+  70,00,4c,00,69,00,73,00,74,00,2e,00,70,00,6e,00,67,00,00,00,00,00,59,00,00,\
+  00,0f,00,00,00,00,1f,00,00,00,23,00,00,00,41,00,73,00,73,00,65,00,74,00,73,\
+  00,5c,00,41,00,70,00,70,00,54,00,69,00,6c,00,65,00,73,00,5c,00,53,00,74,00,\
+  6f,00,72,00,65,00,42,00,61,00,64,00,67,00,65,00,4c,00,6f,00,67,00,6f,00,2e,\
+  00,70,00,6e,00,67,00,00,00,00,00,55,00,00,00,0d,00,00,00,00,1f,00,00,00,22,\
+  00,00,00,41,00,73,00,73,00,65,00,74,00,73,00,5c,00,41,00,70,00,70,00,54,00,\
+  69,00,6c,00,65,00,73,00,5c,00,53,00,74,00,6f,00,72,00,65,00,57,00,69,00,64,\
+  00,65,00,54,00,69,00,6c,00,65,00,2e,00,70,00,6e,00,67,00,00,00,11,00,00,00,\
+  04,00,00,00,00,13,00,00,00,00,78,d4,ff,11,00,00,00,05,00,00,00,00,13,00,00,\
+  00,ff,ff,ff,ff,59,00,00,00,13,00,00,00,00,1f,00,00,00,23,00,00,00,41,00,73,\
+  00,73,00,65,00,74,00,73,00,5c,00,41,00,70,00,70,00,54,00,69,00,6c,00,65,00,\
+  73,00,5c,00,53,00,74,00,6f,00,72,00,65,00,4c,00,61,00,72,00,67,00,65,00,54,\
+  00,69,00,6c,00,65,00,2e,00,70,00,6e,00,67,00,00,00,00,00,11,00,00,00,0e,00,\
+  00,00,00,13,00,00,00,a5,04,00,00,31,00,00,00,0b,00,00,00,00,1f,00,00,00,10,\
+  00,00,00,4d,00,69,00,63,00,72,00,6f,00,73,00,6f,00,66,00,74,00,20,00,53,00,\
+  74,00,6f,00,72,00,65,00,00,00,59,00,00,00,14,00,00,00,00,1f,00,00,00,23,00,\
+  00,00,41,00,73,00,73,00,65,00,74,00,73,00,5c,00,41,00,70,00,70,00,54,00,69,\
+  00,6c,00,65,00,73,00,5c,00,53,00,74,00,6f,00,72,00,65,00,53,00,6d,00,61,00,\
+  6c,00,6c,00,54,00,69,00,6c,00,65,00,2e,00,70,00,6e,00,67,00,00,00,00,00,00,\
+  00,00,00,31,00,00,00,31,53,50,53,b1,16,6d,44,ad,8d,70,48,a7,48,40,2e,a4,3d,\
+  78,8c,15,00,00,00,64,00,00,00,00,15,00,00,00,f7,04,00,00,00,00,00,00,00,00,\
+  00,00,4d,00,00,00,31,53,50,53,30,f1,25,b7,ef,47,1a,10,a5,f1,02,60,8c,9e,eb,\
+  ac,31,00,00,00,0a,00,00,00,00,1f,00,00,00,10,00,00,00,4d,00,69,00,63,00,72,\
+  00,6f,00,73,00,6f,00,66,00,74,00,20,00,53,00,74,00,6f,00,72,00,65,00,00,00,\
+  00,00,00,00,2d,00,00,00,31,53,50,53,b3,77,ed,0d,14,c6,6c,45,ae,5b,28,5b,38,\
+  d7,b0,1b,11,00,00,00,07,00,00,00,00,13,00,00,00,00,00,00,00,00,00,00,00,00,\
+  00,00,00,00,00,22,00,00,00,1e,00,ef,be,02,00,55,00,73,00,65,00,72,00,50,00,\
+  69,00,6e,00,6e,00,65,00,64,00,00,00,b0,05,12,00,00,00,2b,00,ef,be,ac,44,ec,\
+  1c,f2,4e,db,01,b0,05,5e,00,00,00,1d,00,ef,be,02,00,4d,00,69,00,63,00,72,00,\
+  6f,00,73,00,6f,00,66,00,74,00,2e,00,57,00,69,00,6e,00,64,00,6f,00,77,00,73,\
+  00,53,00,74,00,6f,00,72,00,65,00,5f,00,38,00,77,00,65,00,6b,00,79,00,62,00,\
+  33,00,64,00,38,00,62,00,62,00,77,00,65,00,21,00,41,00,70,00,70,00,00,00,b0,\
+  05,00,00,00,00,00,00
+"Favorites"=hex:00,a0,01,00,00,3a,00,1f,80,c8,27,34,1f,10,5c,10,42,aa,03,2e,e4,\
+  52,87,d6,68,26,00,01,00,26,00,ef,be,12,00,00,00,bf,08,44,7a,f2,4e,db,01,bf,\
+  7e,c0,85,f2,4e,db,01,7e,9b,af,c2,f4,4e,db,01,14,00,56,00,31,00,00,00,00,00,\
+  8f,59,25,6b,11,00,54,61,73,6b,42,61,72,00,40,00,09,00,04,00,ef,be,8f,59,24,\
+  69,8f,59,25,6b,2e,00,00,00,72,e8,01,00,00,00,02,00,00,00,00,00,00,00,00,00,\
+  00,00,00,00,00,00,82,e3,05,01,54,00,61,00,73,00,6b,00,42,00,61,00,72,00,00,\
+  00,16,00,0e,01,32,00,97,01,00,00,81,58,c4,3a,20,00,46,49,4c,45,45,58,7e,31,\
+  2e,4c,4e,4b,00,00,7c,00,09,00,04,00,ef,be,8f,59,05,6b,8f,59,25,6b,2e,00,00,\
+  00,99,e6,01,00,00,00,03,00,00,00,00,00,00,00,00,00,52,00,00,00,00,00,db,dc,\
+  91,00,46,00,69,00,6c,00,65,00,20,00,45,00,78,00,70,00,6c,00,6f,00,72,00,65,\
+  00,72,00,2e,00,6c,00,6e,00,6b,00,00,00,40,00,73,00,68,00,65,00,6c,00,6c,00,\
+  33,00,32,00,2e,00,64,00,6c,00,6c,00,2c,00,2d,00,32,00,32,00,30,00,36,00,37,\
+  00,00,00,1c,00,12,00,00,00,2b,00,ef,be,b2,c7,b0,c2,f4,4e,db,01,1c,00,42,00,\
+  00,00,1d,00,ef,be,02,00,4d,00,69,00,63,00,72,00,6f,00,73,00,6f,00,66,00,74,\
+  00,2e,00,57,00,69,00,6e,00,64,00,6f,00,77,00,73,00,2e,00,45,00,78,00,70,00,\
+  6c,00,6f,00,72,00,65,00,72,00,00,00,1c,00,22,00,00,00,1e,00,ef,be,02,00,55,\
+  00,73,00,65,00,72,00,50,00,69,00,6e,00,6e,00,65,00,64,00,00,00,1c,00,00,00,\
+  00,52,01,00,00,3a,00,1f,80,c8,27,34,1f,10,5c,10,42,aa,03,2e,e4,52,87,d6,68,\
+  26,00,01,00,26,00,ef,be,12,00,00,00,bf,08,44,7a,f2,4e,db,01,bf,7e,c0,85,f2,\
+  4e,db,01,ac,e5,f5,c9,f4,4e,db,01,14,00,56,00,31,00,00,00,00,00,8f,59,25,6b,\
+  11,00,54,61,73,6b,42,61,72,00,40,00,09,00,04,00,ef,be,8f,59,24,69,8f,59,25,\
+  6b,2e,00,00,00,72,e8,01,00,00,00,02,00,00,00,00,00,00,00,00,00,00,00,00,00,\
+  00,00,82,e3,05,01,54,00,61,00,73,00,6b,00,42,00,61,00,72,00,00,00,16,00,c0,\
+  00,32,00,86,09,00,00,8f,59,ed,65,20,00,4d,49,43,52,4f,53,7e,31,2e,4c,4e,4b,\
+  00,00,56,00,09,00,04,00,ef,be,8f,59,2b,6b,8f,59,2b,6b,2e,00,00,00,f3,ee,01,\
+  00,00,00,01,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,70,68,2e,01,4d,00,\
+  69,00,63,00,72,00,6f,00,73,00,6f,00,66,00,74,00,20,00,45,00,64,00,67,00,65,\
+  00,2e,00,6c,00,6e,00,6b,00,00,00,1c,00,12,00,00,00,2b,00,ef,be,17,3b,f8,c9,\
+  f4,4e,db,01,1c,00,1a,00,00,00,1d,00,ef,be,02,00,4d,00,53,00,45,00,64,00,67,\
+  00,65,00,00,00,1c,00,22,00,00,00,1e,00,ef,be,02,00,55,00,73,00,65,00,72,00,\
+  50,00,69,00,6e,00,6e,00,65,00,64,00,00,00,1c,00,00,00,00,58,06,00,00,14,00,\
+  1f,80,9b,d4,34,42,45,02,f3,4d,b7,80,38,93,94,34,56,e1,42,06,00,00,aa,05,41,\
+  50,50,53,98,05,08,00,03,00,00,00,00,00,00,00,5f,02,00,00,31,53,50,53,55,28,\
+  4c,9f,79,9f,39,4b,a8,d0,e1,d4,2d,e1,d5,f3,5d,00,00,00,11,00,00,00,00,1f,00,\
+  00,00,25,00,00,00,4d,00,69,00,63,00,72,00,6f,00,73,00,6f,00,66,00,74,00,2e,\
+  00,57,00,69,00,6e,00,64,00,6f,00,77,00,73,00,53,00,74,00,6f,00,72,00,65,00,\
+  5f,00,38,00,77,00,65,00,6b,00,79,00,62,00,33,00,64,00,38,00,62,00,62,00,77,\
+  00,65,00,00,00,00,00,11,00,00,00,27,00,00,00,00,0b,00,00,00,00,00,00,00,11,\
+  00,00,00,0e,00,00,00,00,13,00,00,00,01,00,00,00,85,00,00,00,15,00,00,00,00,\
+  1f,00,00,00,39,00,00,00,4d,00,69,00,63,00,72,00,6f,00,73,00,6f,00,66,00,74,\
+  00,2e,00,57,00,69,00,6e,00,64,00,6f,00,77,00,73,00,53,00,74,00,6f,00,72,00,\
+  65,00,5f,00,32,00,32,00,34,00,30,00,31,00,2e,00,31,00,34,00,30,00,30,00,2e,\
+  00,36,00,2e,00,30,00,5f,00,78,00,36,00,34,00,5f,00,5f,00,38,00,77,00,65,00,\
+  6b,00,79,00,62,00,33,00,64,00,38,00,62,00,62,00,77,00,65,00,00,00,00,00,65,\
+  00,00,00,05,00,00,00,00,1f,00,00,00,29,00,00,00,4d,00,69,00,63,00,72,00,6f,\
+  00,73,00,6f,00,66,00,74,00,2e,00,57,00,69,00,6e,00,64,00,6f,00,77,00,73,00,\
+  53,00,74,00,6f,00,72,00,65,00,5f,00,38,00,77,00,65,00,6b,00,79,00,62,00,33,\
+  00,64,00,38,00,62,00,62,00,77,00,65,00,21,00,41,00,70,00,70,00,00,00,00,00,\
+  bd,00,00,00,0f,00,00,00,00,1f,00,00,00,56,00,00,00,43,00,3a,00,5c,00,50,00,\
+  72,00,6f,00,67,00,72,00,61,00,6d,00,20,00,46,00,69,00,6c,00,65,00,73,00,5c,\
+  00,57,00,69,00,6e,00,64,00,6f,00,77,00,73,00,41,00,70,00,70,00,73,00,5c,00,\
+  4d,00,69,00,63,00,72,00,6f,00,73,00,6f,00,66,00,74,00,2e,00,57,00,69,00,6e,\
+  00,64,00,6f,00,77,00,73,00,53,00,74,00,6f,00,72,00,65,00,5f,00,32,00,32,00,\
+  34,00,30,00,31,00,2e,00,31,00,34,00,30,00,30,00,2e,00,36,00,2e,00,30,00,5f,\
+  00,78,00,36,00,34,00,5f,00,5f,00,38,00,77,00,65,00,6b,00,79,00,62,00,33,00,\
+  64,00,38,00,62,00,62,00,77,00,65,00,00,00,1d,00,00,00,20,00,00,00,00,48,00,\
+  00,00,0e,b1,2f,32,7a,8f,4a,42,bc,85,4c,6a,69,2e,97,a7,00,00,00,00,8a,02,00,\
+  00,31,53,50,53,4d,0b,d4,86,69,90,3c,44,81,9a,2a,54,09,0d,cc,ec,55,00,00,00,\
+  0c,00,00,00,00,1f,00,00,00,21,00,00,00,41,00,73,00,73,00,65,00,74,00,73,00,\
+  5c,00,41,00,70,00,70,00,54,00,69,00,6c,00,65,00,73,00,5c,00,53,00,74,00,6f,\
+  00,72,00,65,00,4d,00,65,00,64,00,54,00,69,00,6c,00,65,00,2e,00,70,00,6e,00,\
+  67,00,00,00,00,00,55,00,00,00,02,00,00,00,00,1f,00,00,00,21,00,00,00,41,00,\
+  73,00,73,00,65,00,74,00,73,00,5c,00,41,00,70,00,70,00,54,00,69,00,6c,00,65,\
+  00,73,00,5c,00,53,00,74,00,6f,00,72,00,65,00,41,00,70,00,70,00,4c,00,69,00,\
+  73,00,74,00,2e,00,70,00,6e,00,67,00,00,00,00,00,59,00,00,00,0f,00,00,00,00,\
+  1f,00,00,00,23,00,00,00,41,00,73,00,73,00,65,00,74,00,73,00,5c,00,41,00,70,\
+  00,70,00,54,00,69,00,6c,00,65,00,73,00,5c,00,53,00,74,00,6f,00,72,00,65,00,\
+  42,00,61,00,64,00,67,00,65,00,4c,00,6f,00,67,00,6f,00,2e,00,70,00,6e,00,67,\
+  00,00,00,00,00,55,00,00,00,0d,00,00,00,00,1f,00,00,00,22,00,00,00,41,00,73,\
+  00,73,00,65,00,74,00,73,00,5c,00,41,00,70,00,70,00,54,00,69,00,6c,00,65,00,\
+  73,00,5c,00,53,00,74,00,6f,00,72,00,65,00,57,00,69,00,64,00,65,00,54,00,69,\
+  00,6c,00,65,00,2e,00,70,00,6e,00,67,00,00,00,11,00,00,00,04,00,00,00,00,13,\
+  00,00,00,00,78,d4,ff,11,00,00,00,05,00,00,00,00,13,00,00,00,ff,ff,ff,ff,59,\
+  00,00,00,13,00,00,00,00,1f,00,00,00,23,00,00,00,41,00,73,00,73,00,65,00,74,\
+  00,73,00,5c,00,41,00,70,00,70,00,54,00,69,00,6c,00,65,00,73,00,5c,00,53,00,\
+  74,00,6f,00,72,00,65,00,4c,00,61,00,72,00,67,00,65,00,54,00,69,00,6c,00,65,\
+  00,2e,00,70,00,6e,00,67,00,00,00,00,00,11,00,00,00,0e,00,00,00,00,13,00,00,\
+  00,a5,04,00,00,31,00,00,00,0b,00,00,00,00,1f,00,00,00,10,00,00,00,4d,00,69,\
+  00,63,00,72,00,6f,00,73,00,6f,00,66,00,74,00,20,00,53,00,74,00,6f,00,72,00,\
+  65,00,00,00,59,00,00,00,14,00,00,00,00,1f,00,00,00,23,00,00,00,41,00,73,00,\
+  73,00,65,00,74,00,73,00,5c,00,41,00,70,00,70,00,54,00,69,00,6c,00,65,00,73,\
+  00,5c,00,53,00,74,00,6f,00,72,00,65,00,53,00,6d,00,61,00,6c,00,6c,00,54,00,\
+  69,00,6c,00,65,00,2e,00,70,00,6e,00,67,00,00,00,00,00,00,00,00,00,31,00,00,\
+  00,31,53,50,53,b1,16,6d,44,ad,8d,70,48,a7,48,40,2e,a4,3d,78,8c,15,00,00,00,\
+  64,00,00,00,00,15,00,00,00,f7,04,00,00,00,00,00,00,00,00,00,00,4d,00,00,00,\
+  31,53,50,53,30,f1,25,b7,ef,47,1a,10,a5,f1,02,60,8c,9e,eb,ac,31,00,00,00,0a,\
+  00,00,00,00,1f,00,00,00,10,00,00,00,4d,00,69,00,63,00,72,00,6f,00,73,00,6f,\
+  00,66,00,74,00,20,00,53,00,74,00,6f,00,72,00,65,00,00,00,00,00,00,00,2d,00,\
+  00,00,31,53,50,53,b3,77,ed,0d,14,c6,6c,45,ae,5b,28,5b,38,d7,b0,1b,11,00,00,\
+  00,07,00,00,00,00,13,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,22,\
+  00,00,00,1e,00,ef,be,02,00,55,00,73,00,65,00,72,00,50,00,69,00,6e,00,6e,00,\
+  65,00,64,00,00,00,b0,05,12,00,00,00,2b,00,ef,be,ac,44,ec,1c,f2,4e,db,01,b0,\
+  05,5e,00,00,00,1d,00,ef,be,02,00,4d,00,69,00,63,00,72,00,6f,00,73,00,6f,00,\
+  66,00,74,00,2e,00,57,00,69,00,6e,00,64,00,6f,00,77,00,73,00,53,00,74,00,6f,\
+  00,72,00,65,00,5f,00,38,00,77,00,65,00,6b,00,79,00,62,00,33,00,64,00,38,00,\
+  62,00,62,00,77,00,65,00,21,00,41,00,70,00,70,00,00,00,b0,05,00,00,ff
+"FavoritesChanges"=dword:0000000a
+"FavoritesVersion"=dword:00000003
+        </File>
+        <File path="C:\Windows\Setup\Scripts\Specialize.ps1" transformation="Text">
 $scripts = @(
 	{
 		Get-Content -LiteralPath 'C:\Windows\Setup\Scripts\GetComputerName.ps1' -Raw | Invoke-Expression &gt; 'C:\Windows\Setup\Scripts\ComputerName.txt';
 		Start-Process -FilePath ( Get-Process -Id $PID ).Path -ArgumentList '-NoProfile', '-Command', 'Get-Content -LiteralPath "C:\Windows\Setup\Scripts\SetComputerName.ps1" -Raw | Invoke-Expression;' -WindowStyle 'Hidden';
+	};
+	{
+		Start-Process -FilePath C:\Windows\Setup\Files\IWLWiFi\WiFi-23.90.0-Driver64-Win10-Win11.exe -ArgumentList '/passive' -Wait;
+		Start-Process -FilePath C:\Windows\Setup\Files\IWLWiFi\BT-23.90.0-64UWD-Win10-Win11.exe -ArgumentList '/passive' -Wait;
 	};
 	{
 		reg.exe add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\OOBE" /v BypassNRO /t REG_DWORD /d 1 /f;
@@ -353,7 +596,7 @@ $scripts = @(
 	}
 } *&gt;&amp;1 &gt;&gt; "C:\Windows\Setup\Scripts\Specialize.log";
 		</File>
-		<File path="C:\Windows\Setup\Scripts\UserOnce.ps1" transformation="Text">
+        <File path="C:\Windows\Setup\Scripts\UserOnce.ps1" transformation="Text">
 $scripts = @(
 	{
 		$params = @{
@@ -366,6 +609,11 @@ $scripts = @(
 	};
 	{
 		Set-ItemProperty -LiteralPath 'Registry::HKCU\Software\Microsoft\Windows\CurrentVersion\Search' -Name 'SearchboxTaskbarMode' -Type 'DWord' -Value 1;
+	};
+	{
+		Remove-Item "$home\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar\*" -Recurse
+		Copy-Item C:\Windows\Setup\Files\PinLinks\* "$home\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar\"
+		reg.exe import "C:\Windows\Setup\Scripts\unattend-04.reg";
 	};
 	{
 		Get-Process -Name 'explorer' -ErrorAction 'SilentlyContinue' | Where-Object -FilterScript {
@@ -384,7 +632,7 @@ $scripts = @(
 	}
 } *&gt;&amp;1 &gt;&gt; "$env:TEMP\UserOnce.log";
 		</File>
-		<File path="C:\Windows\Setup\Scripts\DefaultUser.ps1" transformation="Text">
+        <File path="C:\Windows\Setup\Scripts\DefaultUser.ps1" transformation="Text">
 $scripts = @(
 	{
 		reg.exe add "HKU\DefaultUser\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "HideFileExt" /t REG_DWORD /d 0 /f;
@@ -435,7 +683,7 @@ $scripts = @(
 	}
 } *&gt;&amp;1 &gt;&gt; "C:\Windows\Setup\Scripts\DefaultUser.log";
 		</File>
-		<File path="C:\Windows\Setup\Scripts\FirstLogon.ps1" transformation="Text">
+        <File path="C:\Windows\Setup\Scripts\FirstLogon.ps1" transformation="Text">
 $scripts = @(
 	{
 		cmd.exe /c "rmdir C:\Windows.old";
@@ -452,5 +700,5 @@ $scripts = @(
 	}
 } *&gt;&amp;1 &gt;&gt; "C:\Windows\Setup\Scripts\FirstLogon.log";
 		</File>
-	</Extensions>
+    </Extensions>
 </unattend>

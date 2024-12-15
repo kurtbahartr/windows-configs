@@ -4,6 +4,7 @@ applist.txt
 autounattend.xml
 encode-for-autounattend.sh
 mods.txt
+sources
 resources.txt
 winget-bundle.cmd
 winget-bundle-optional.cmd

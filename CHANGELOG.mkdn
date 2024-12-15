@@ -1,3 +1,27 @@
+Version 1.1.0-24H2
+https://github.com/kurtbahartr/windows-configs/releases/tag/v1.0.0-24H2
+-----------------------------------------------------------------------
+**Features**
+- Introduce a way to replace the taskbar pins with the use of a combo of registry and `$OEM$` folder.
+  - This will replace the pins with the layout from Windows 11 RTM.
+- Add constant license owner info for authorship. This can easily be changed within the answer file.
+- Add fallback UI language.
+- Install the latest generic Intel WiFi and Bluetooth drivers.
+  - This repo doesn't contain binaries on its own. It's the ISO in the releases that will contain them and you can always copy your own into the `sources\$OEM$` folder and modify the dropped script within the answer file.
+
+**Changes**
+- Remake the answer file in Windows System Image Manager.
+- Change temporary hostname to `ST-DENIS-TEMP`.
+- Change the default keyboard layouts for a more consistent Canadian locale experience. The new layout is now;
+  - Canadian French (en-CA)
+  - US (en-CA)
+  - Turkish Q (tr-TR)
+- Debloat the Start pins even further and add Word-Excel-PowerPoint in the list of apps to pin.
+  - Word-Excel-PowerPoint pins will work only if you preinstall Office 365 desktop suite.
+
+**Fixes**
+- Fix the command to install Unigram in Winget bundle.
+
 Version 1.0.0-24H2
 https://github.com/kurtbahartr/windows-configs/releases/tag/v1.0.0-24H2
 -----------------------------------------------------------------------
