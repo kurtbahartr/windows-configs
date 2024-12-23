@@ -298,6 +298,10 @@ Windows Registry Editor Version 5.00
 
 [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\DeviceGuard]
 "EnableVirtualizationBasedSecurity"=dword:00000000
+"HVCIMATRequired"=dword:00000000
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\DeviceGuard]
+"EnableVirtualizationBasedSecurity"=dword:00000000
 		</File>
         <File path="C:\Windows\Setup\Scripts\unattend-04.reg" transformation="Text">
 Windows Registry Editor Version 5.00

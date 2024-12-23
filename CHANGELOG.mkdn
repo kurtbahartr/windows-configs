@@ -1,3 +1,30 @@
+Version 1.1.1-24H2
+https://github.com/kurtbahartr/windows-configs/releases/tag/v1.1.1-24H2
+-----------------------------------------------------------------------
+> [!WARNING]
+> Windows Defender no longer detects the ISOs in the releases as a trojan, `Trojan:Script/Wacatac.B!ml`. I assume it has to do with a minor update to Defender, but we may never know for sure.
+> 
+> Read [the main repo readme](https://github.com/kurtbahartr/windows-configs/tree/master?tab=readme-ov-file#windows-configs) for more info.
+
+**Fixes**
+- Add `HVCIMATRequired` in Device Guard policies as done by the "Turn On Virtualization Based Security" group policy.
+- Add `EnableVirtualizationBasedSecurity` key in `CurrentControlSet` also.
+
+> [!NOTE]
+> Let's talk about the version string while I've got you here for a bit.
+> 
+> The version string basically identifies which iteration of this project you're running, and uses [the Semantic Versioning standard](https://semver.org/) to determine which is which.
+> 
+> For instance, this release is 1.1.1, where this is the 1st patch release of the 1st minor release of the 1st major release.
+> 
+> What this means is that there was an update released after 1.0.0 that adds functionality (or even rewrites the whole thing for that matter) while keeping backwards compatibility, meaning you can add the new features and fixes on your system without a reinstall.
+> 
+> And this is the first patch version over 1.1.0, whcih fixes bugs in a backwards-compatible manner, meaning that you can apply the said patch on your system without going for a reinstall.
+> 
+> On top of the Semantic Versioning standard is what I'd like to call "based-on string". This one basically indicates which build of Windows it was built upon and you're recommended to use this on.
+> 
+> This release has the string "24H2", which means you have to use a Windows version on build "24H2". It's Windows 11 that has a 24H2 build. Had there been a build of Windows 11 named "25H2", I would put "25H2" instead.
+
 Version 1.1.0-24H2
 https://github.com/kurtbahartr/windows-configs/releases/tag/v1.1.0-24H2
 -----------------------------------------------------------------------
