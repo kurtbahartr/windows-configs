@@ -19,5 +19,3 @@ start winget install tailscale.tailscale --source winget
 start winget install CodeSector.TeraCopy --source winget
 start cmd /C "winget install Microsoft.VCRedist.2015+.x64 --source winget && winget install Transmission.Transmission --source winget"
 start winget install VideoLAN.VLC --source winget
-start winget install OpenWhisperSystems.Signal --source winget
-start winget install Nextcloud.NextcloudDesktop --source winget
