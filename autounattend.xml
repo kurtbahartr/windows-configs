@@ -302,6 +302,9 @@ Windows Registry Editor Version 5.00
 
 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\DeviceGuard]
 "EnableVirtualizationBasedSecurity"=dword:00000000
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\DeviceGuard\Scenarios\HypervisorEnforcedCodeIntegrity]
+"Enabled"=dword:00000000
 		</File>
         <File path="C:\Windows\Setup\Scripts\unattend-04.reg" transformation="Text">
 Windows Registry Editor Version 5.00
@@ -615,9 +618,11 @@ $scripts = @(
 		Set-ItemProperty -LiteralPath 'Registry::HKCU\Software\Microsoft\Windows\CurrentVersion\Search' -Name 'SearchboxTaskbarMode' -Type 'DWord' -Value 1;
 	};
 	{
-		Remove-Item "$home\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar\*" -Recurse
-		Copy-Item C:\Windows\Setup\Files\PinLinks\* "$home\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar\"
-		reg.exe import "C:\Windows\Setup\Scripts\unattend-04.reg";
+		if ([Environment]::OSVersion.Version.Build -gt 19999) {
+			Remove-Item "$home\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar\*" -Recurse
+			Copy-Item C:\Windows\Setup\Files\PinLinks\* "$home\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar\"
+			reg.exe import "C:\Windows\Setup\Scripts\unattend-04.reg";
+		}
 	};
 	{
 		Get-Process -Name 'explorer' -ErrorAction 'SilentlyContinue' | Where-Object -FilterScript {

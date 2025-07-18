@@ -1,3 +1,14 @@
+Version 1.1.2-24H2
+https://github.com/kurtbahartr/windows-configs/releases/tag/v1.1.2-24H2
+-----------------------------------------------------------------------
+**Features**
+- Add `HypervisorEnforcedCodeIntegrity` key with "Enabled"=0 DWORD to disable Memory Integrity.
+
+**Fixes**
+- Replace taskbar pins only if the user is running on a Windows version **higher than 10** (build number is higher than 19999).
+  - This means that I'm slowly phasing out Windows 10 GAC support. If you're still on GAC and don't like this change, you can just unpin Copilot from taskbar yourself.
+  - This never worked on Windows 10. It would render the taskbar pins unusable and prompt you to delete them when you tried to invoke them.
+
 Version 1.1.1-24H2
 https://github.com/kurtbahartr/windows-configs/releases/tag/v1.1.1-24H2
 -----------------------------------------------------------------------
