@@ -2,6 +2,15 @@ Version 1.1.2-24H2
 https://github.com/kurtbahartr/windows-configs/releases/tag/v1.1.2-24H2
 -----------------------------------------------------------------------
 **Features**
+- `encode-for-autounattend`: Add support for Administrator account password.
+
+**Fixes**
+- `encode-for-autounattend`: Remove testing code.
+
+Version 1.1.2-24H2
+https://github.com/kurtbahartr/windows-configs/releases/tag/v1.1.2-24H2
+-----------------------------------------------------------------------
+**Features**
 - Add `HypervisorEnforcedCodeIntegrity` key with "Enabled"=0 DWORD to disable Memory Integrity.
 
 **Fixes**
