@@ -29,6 +29,12 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Install xorriso (for building ISO)
+        id: install_xorriso
+        if: ${{ env.NEW_RELEASE == '1' }}
+        run: |
+          sudo apt update && sudo apt install xorriso
+
       - name: Build ISO
         id: build_iso
         if: ${{ env.NEW_RELEASE == '1' }}
