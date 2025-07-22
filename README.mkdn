@@ -32,14 +32,14 @@ Each approach has a different way to use this piece of work. Major known ones ar
 ## Rufus/Media Creation Tool/Manual file copy [Recommended for UEFI!]
 
 1. Flash the USB drive with the stock Windows 10/11 ISO.
-2. Mount the ISO and copy `autounattend.xml` to the root of the drive. For example, if your flash drive is in drive `E:`, you have to copy `autounattend.xml` there.
+2. Mount the ISO and copy the `sources` folder and `autounattend.xml` file to the root of the drive. For example, if your flash drive is in drive `E:`, you have to copy them there.
 3. Boot from the USB and roll with it!
 
 ## Ventoy/`dd` in Linux/Direct ISO modification [Recommended for Legacy BIOS!]
 
 1. Download the ISO from Microsoft's website or create one using Media Creation Tool.
-2. Inject the `autounattend.xml` file into the ISO using the appropriate software. I use UltraISO on Windows.
-3. Copy the ISO to your Ventoy drive/Flash the ISO using `dd`.
+2. Inject the `sources` folder, merging it, and `autounattend.xml` file into the ISO using the appropriate software. I use UltraISO on Windows.
+3. Copy the new ISO to your Ventoy drive/Flash the new ISO using `dd`.
 4. Boot into the setup and roll with it!
 
 # File list
