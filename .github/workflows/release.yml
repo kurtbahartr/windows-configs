@@ -51,7 +51,7 @@ jobs:
             curl --remote-name $link
           done
           popd
-          mkdir -p 'sources/$OEM/$$/Setup/Files/GPU'
+          mkdir -p 'sources/$OEM$/$$/Setup/Files/GPU'
           pushd 'sources/$OEM$/$$/Setup/Files/GPU'
           curl --remote-name -L $nvidia_app
           popd
