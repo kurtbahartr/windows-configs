@@ -548,8 +548,8 @@ $scripts = @(
 		Start-Process -FilePath ( Get-Process -Id $PID ).Path -ArgumentList '-NoProfile', '-Command', 'Get-Content -LiteralPath "C:\Windows\Setup\Scripts\SetComputerName.ps1" -Raw | Invoke-Expression;' -WindowStyle 'Hidden';
 	};
 	{
-		Start-Process -FilePath C:\Windows\Setup\Files\IWLWiFi\WiFi-23.90.0-Driver64-Win10-Win11.exe -ArgumentList '/passive' -Wait;
-		Start-Process -FilePath C:\Windows\Setup\Files\IWLWiFi\BT-23.90.0-64UWD-Win10-Win11.exe -ArgumentList '/passive' -Wait;
+		Start-Process -FilePath C:\Windows\Setup\Files\IWLWiFi\WiFi-23.150.0-Driver64-Win10-Win11.exe -ArgumentList '/passive' -Wait;
+		Start-Process -FilePath C:\Windows\Setup\Files\IWLWiFi\BT-23.150.0-64UWD-Win10-Win11.exe -ArgumentList '/passive' -Wait;
 	};
 	{
 		reg.exe add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\OOBE" /v BypassNRO /t REG_DWORD /d 1 /f;

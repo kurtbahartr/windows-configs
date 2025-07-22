@@ -4,6 +4,9 @@ https://github.com/kurtbahartr/windows-configs/releases/tag/v1.2.0-24H2
 **Features**
 - Install NVIDIA app on first logon.
 
+**Changes**
+- Update Intel WiFi and Bluetooth drivers from version 23.90.0 to 23.150.0.
+
 **Fixes**
 - Update README.
 
