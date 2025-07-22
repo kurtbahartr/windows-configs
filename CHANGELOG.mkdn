@@ -1,3 +1,8 @@
+Version 1.2.1-24H2
+https://github.com/kurtbahartr/windows-configs/releases/tag/v1.2.1-24H2
+-----------------------------------------------------------------------
+This version is made solely to test CI and has no meaning in terms of any changes.
+
 Version 1.2.0-24H2
 https://github.com/kurtbahartr/windows-configs/releases/tag/v1.2.0-24H2
 -----------------------------------------------------------------------
