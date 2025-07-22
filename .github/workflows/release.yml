@@ -93,7 +93,7 @@ jobs:
         id: gen_proper_rel_name_title
         if: ${{ env.NEW_RELEASE == '1' }}
         run: |
-          echo "$tag_name" | sed 's/^v/PROPER_RELEASE_TITLE="Version /; s/$/"/' >> $GITHUB_ENV
+          echo "$tag_name" | sed 's/^v/PROPER_RELEASE_TITLE=Version /' >> $GITHUB_ENV
         env:
           tag_name: ${{ env.TAG_NAME }}
 
