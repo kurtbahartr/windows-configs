@@ -44,7 +44,7 @@ fi
 
 # Add the "Full Changelog" line comparing the previous version with the current one only if a previous version exists
 if [[ -n "$PREV_VERSION" ]]; then
-  echo "**Full Changelog**: $REMOTE_URL/compare/v$PREV_VERSION...v$VERSION"
+  echo "**Full Changelog**: $REMOTE_URL/compare/$PREV_VERSION...v$VERSION"
 else
   echo -e "\n**Full Changelog**: $REMOTE_URL/commits/v$VERSION"
 fi
