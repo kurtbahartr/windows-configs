@@ -1,3 +1,12 @@
+Version 1.2.0-24H2
+https://github.com/kurtbahartr/windows-configs/releases/tag/v1.2.0-24H2
+-----------------------------------------------------------------------
+**Features**
+- Install NVIDIA app on first logon.
+
+**Fixes**
+- Update README.
+
 Version 1.1.2-24H2
 https://github.com/kurtbahartr/windows-configs/releases/tag/v1.1.2-24H2
 -----------------------------------------------------------------------
