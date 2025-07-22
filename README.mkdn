@@ -29,14 +29,6 @@ This right here is my configuration for Windows, made for myself, documented for
 
 Each approach has a different way to use this piece of work. Major known ones are covered here.
 
-## Virtual Machines
-
-1. Create the VM with the stock Windows 10/11 ISO, you may power it off when it boots into the setup.
-> VMware Workstation users must NOT power on the VM after it's been created if Easy Install is in place!
-2. Add a new CD drive and put the ISO in releases to it.
-> You may also pack your own by checking `.github/workflows/release.yml` Build ISO step in this repo.
-3. Boot the VM up and roll with it!
-
 ## Rufus/Media Creation Tool/Manual file copy [Recommended for UEFI!]
 
 1. Flash the USB drive with the stock Windows 10/11 ISO.
@@ -186,7 +178,5 @@ Each approach has a different way to use this piece of work. Major known ones ar
 
 # To-Do
 
-1. Add NVIDIA app into post-first-logon.
-2. Remove more of the less frequently used apps from Start pins.
-3. GitHub Actions for building a discrete ISO with these files. (Basically a data CD ISO with the files in this repo.)
-> You may alternatively opt for a tool like AnyBurn or UltraISO for the time being.
+1. Add [Ascension](https://ascension.gg) into post-first-logon.
+2. Add NVIDIA app into post-first-logon.
