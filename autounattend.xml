@@ -697,6 +697,9 @@ $scripts = @(
 	{
 		cmd.exe /c "rmdir C:\Windows.old";
 	};
+	{
+		Start-Process -FilePath C:\Windows\Setup\Files\GPU\NVIDIA_app_v11.0.4.526.exe -ArgumentList '/s' -Wait;
+	};
 );
 
 &amp; {

@@ -51,11 +51,16 @@ jobs:
             curl --remote-name $link
           done
           popd
+          mkdir -p 'sources/$OEM/$$/Setup/Files/GPU'
+          pushd 'sources/$OEM$/$$/Setup/Files/GPU'
+          curl --remote-name -L $nvidia_app
+          popd
           popd
           xorriso -as mkisofs -r -J --joliet-long -V 'STDU_GH' -o STDU-GH.iso -partition_offset 16 isoroot
           echo "ISO_PATH=$(pwd)/STDU-GH.iso" >> $GITHUB_ENV
         env:
           iwlwifi_drvs: https://downloadmirror.intel.com/837889/BT-23.90.0-64UWD-Win10-Win11.exe https://downloadmirror.intel.com/837761/WiFi-23.90.0-Driver64-Win10-Win11.exe
+          nvidia_app: https://us.download.nvidia.com/nvapp/client/11.0.4.526/NVIDIA_app_v11.0.4.526.exe
 
       - name: Run catalog script
         id: run_script
