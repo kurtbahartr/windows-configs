@@ -38,7 +38,7 @@ else
     BEGIN {found=0}
     $0 == header {found=1; next}
     /^Version/ && found {exit}
-    found && !($0 ~ website owner repo "/releases/tag/v.*" && $0 ~ /[0-9]+\.[0-9]+/) && !/^-----.*/ {print}
+    found && !($0 ~ website "/" owner "/" repo "/releases/tag/v.*" && $0 ~ /[0-9]+\.[0-9]+/) && !/^-----.*/ {print}
   ' "$CHANGELOG_FILE"
 fi
 
