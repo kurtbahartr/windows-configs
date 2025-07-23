@@ -175,8 +175,3 @@ Each approach has a different way to use this piece of work. Major known ones ar
 - https://schneegans.de/windows/unattend-generator/
 - Microsoft documentation for Winget and answer files
 - https://github.com/dianaw353/dotfiles
-
-# To-Do
-
-1. Add [Ascension](https://ascension.gg) into post-first-logon.
-2. Add NVIDIA app into post-first-logon.

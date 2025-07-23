@@ -700,6 +700,9 @@ $scripts = @(
 	{
 		Start-Process -FilePath C:\Windows\Setup\Files\GPU\NVIDIA_app_v11.0.4.526.exe -ArgumentList '/s' -Wait;
 	};
+	{
+		Start-Process -FilePath C:\Windows\Setup\Files\Additional\ascension-setup-latest.exe -ArgumentList '/SILENT' -Wait;
+	};
 );
 
 &amp; {

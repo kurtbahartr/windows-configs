@@ -1,3 +1,11 @@
+Version 1.3.0-24H2
+https://github.com/kurtbahartr/windows-configs/releases/tag/v1.3.0-24H2
+-----------------------------------------------------------------------
+**Features**
+- Install [Ascension](https://ascension.gg) (a customized version of World of Warcraft) on first logon.
+  - Before you call it bloatware, let me make my defense: My girlfriend plays it and I also join her from time to time. So it's not a bloatware to me but to you.
+  - Besides, if you don't want to install it, you can just cancel the setup or set up your system without an internet connection.
+
 Version 1.2.1-24H2
 https://github.com/kurtbahartr/windows-configs/releases/tag/v1.2.1-24H2
 -----------------------------------------------------------------------

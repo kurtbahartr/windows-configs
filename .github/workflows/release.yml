@@ -55,12 +55,17 @@ jobs:
           pushd 'sources/$OEM$/$$/Setup/Files/GPU'
           curl --remote-name -L $nvidia_app
           popd
+          mkdir -p 'sources/$OEM$/$$/Setup/Files/Additional'
+          pushd 'sources/$OEM$/$$/Setup/Files/Additional'
+          curl -L $ascension_setup > ascension-setup-latest.exe
+          popd
           popd
           xorriso -as mkisofs -r -J --joliet-long -V 'STDU_GH' -o STDU-GH.iso -partition_offset 16 isoroot
           echo "ISO_PATH=$(pwd)/STDU-GH.iso" >> $GITHUB_ENV
         env:
           iwlwifi_drvs: https://downloadmirror.intel.com/860916/BT-23.150.0-64UWD-Win10-Win11.exe https://downloadmirror.intel.com/860852/WiFi-23.150.0-Driver64-Win10-Win11.exe
           nvidia_app: https://us.download.nvidia.com/nvapp/client/11.0.4.526/NVIDIA_app_v11.0.4.526.exe
+          ascension_setup: https://api.ascension.gg/api/bootstrap/launcher/latest
 
       - name: Run catalog script
         id: run_script
