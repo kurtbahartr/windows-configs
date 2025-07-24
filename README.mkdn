@@ -134,11 +134,11 @@ Each approach has a different way to use this piece of work. Major known ones ar
   - `winget/Microsoft.WindowsTerminal`
   - `msstore/"WhatsApp"`
 - There's also a `winget-bundle-optional.cmd` that will install all other apps I use myself that others might not need/want.
+  - `msstore/"Galaxy Buds"`
   - `winget/Git.Git`
   - `winget/GitHub.cli`
   - `winget/Google.Chrome`
-  - `winget/Windscribe.Windscribe`
-  - `msstore/"Samsung Cloud Assistant"`
+  - `msstore/"Samsung Cloud"`
   - `msstore/"Microsoft To Do"`
   - `winget/Microsoft.PowerToys`
   - `winget/Microsoft.VisualStudioCode`
@@ -147,7 +147,7 @@ Each approach has a different way to use this piece of work. Major known ones ar
   - `winget/Google.QuickShare"`
   - `msstore/"Rufus"`
   - `msstore/"Samsung Gallery"`
-  - `msstore/"Slack"`
+  - `msstore/"Samsung Notes"`
   - `winget/StartIsBack.StartAllBack`
     - You can use the second line instead of the first if you have a key to activate SAB with.
     - I STRONGLY RECOMMEND that you use SAB if you have OCD and use Windows 11 22H2+!
