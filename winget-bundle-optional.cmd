@@ -11,7 +11,6 @@ start winget install "Quick Share" --source msstore --accept-package-agreements
 start winget install Google.QuickShare --source winget
 start winget install "Rufus" --source msstore --accept-package-agreements
 start winget install "Samsung Gallery" --source msstore --accept-package-agreements
-start winget install "Slack" --source msstore --accept-package-agreements
 start winget install StartIsBack.StartAllBack --source winget
 REM start cmd /C "winget install StartIsBack.StartAllBack --source winget && start sib-activate:XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
 start winget install tailscale.tailscale --source winget
