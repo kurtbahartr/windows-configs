@@ -2,7 +2,6 @@ winget update --accept-source-agreements
 start winget install Git.Git --source winget
 start winget install GitHub.cli --source winget
 start winget install Google.Chrome --source winget
-start winget install Windscribe.Windscribe --source winget
 start winget install "Samsung Cloud Assistant" --source msstore --accept-package-agreements
 start winget install "Microsoft To Do" --source msstore --accept-package-agreements
 start winget install Microsoft.PowerToys --source winget
