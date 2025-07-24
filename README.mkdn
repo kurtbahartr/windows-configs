@@ -82,7 +82,7 @@ Each approach has a different way to use this piece of work. Major known ones ar
   - Intel WiFi and Bluetooth drivers are installed for connectivity.
     - You may also see their progress in their own setup windows.
     - Even though it looks like it, AutoHotKey was NOT involved in the process of that setup. Intel provides a `/passive` switch in most of its setup programs that will basically run you through the setup on its own with the optimal defaults.
-  - Device Guard is disabled for proper support for Type 2 hypervisors such as VirtualBox and VMware Workstation.
+  - Device Guard and Memory Integrity are disabled for proper support for Type 2 hypervisors such as VirtualBox and VMware Workstation.
   - Hyper-V is disabled in BCD store for the same reason.
   - The network requirement bypass is enabled. (BypassNRO)
   - Long pathnames are enabled as suggested by Python installer.
