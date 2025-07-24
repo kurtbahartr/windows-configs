@@ -56,7 +56,7 @@ Each approach has a different way to use this piece of work. Major known ones ar
 - Installs Windows 10/11 Pro using the generic product key depending on the install media bundled.
   - Language: English International
   - Locale configuration: English (Canada)
-  - Time zone: Windows should detect this post-install when it's online.
+  - Time zone: UTC-5 (ET - US & Canada)
   - Keyboard layouts;
     - Canadian French in English (Canada) (Default)
     - US in English (Canada)
