@@ -105,6 +105,7 @@ Each approach has a different way to use this piece of work. Major known ones ar
   - No unwanted app is installed automatically. I don't think you want some sane configuration only for Candy Crush to be installed automatically, right?
   - NumLock is enabled on boot regardless of BIOS settings.
   - `C:\Windows.old` is deleted if it exists.
+  - NVIDIA App and [Ascension Launcher](https://ascension.gg) are installed.
 - Configures each new user on their first logon such that;
   - Search icon is set to "Icon only"
   - Taskbar pins are replaced with the layout from Windows 11 RTM;
