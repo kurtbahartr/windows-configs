@@ -3,7 +3,7 @@ https://github.com/kurtbahartr/windows-configs/releases/tag/v1.3.1-24H2
 -----------------------------------------------------------------------
 **Changes**
 - Don't install Windscribe and Slack.
-- Install Galaxy Buds and Samsung Notes.
+- Install Galaxy Buds, GIMP 3 and Samsung Notes.
 
 **Fixes**
 - Samsung Cloud Assistant was renamed to Samsung Cloud. Update the name in `winget-bundle-optional` as well.
