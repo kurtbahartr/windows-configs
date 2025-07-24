@@ -7,7 +7,7 @@ read -p "Enter password to encode for autounattend.xml: " -s string_to_encode
 echo -ne "\n"
 
 # Ask if we're dealing with a password made for the Administrator account.
-read -p "Is this password for the account \"Administrator\" (y/N)? " -s admin_account
+read "Is this password for the account \"Administrator\" (y/N)? " -s admin_account
 echo -ne "\n"
 
 # Convert it to lowercase.
