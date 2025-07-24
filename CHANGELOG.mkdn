@@ -1,3 +1,13 @@
+Version 1.3.1-24H2
+https://github.com/kurtbahartr/windows-configs/releases/tag/v1.3.1-24H2
+-----------------------------------------------------------------------
+**Changes**
+- Don't install Windscribe and Slack.
+- Install Galaxy Buds and Samsung Notes.
+
+**Fixes**
+- Samsung Cloud Assistant was renamed to Samsung Cloud. Update the name in `winget-bundle-optional` as well.
+
 Version 1.3.0-24H2
 https://github.com/kurtbahartr/windows-configs/releases/tag/v1.3.0-24H2
 -----------------------------------------------------------------------
