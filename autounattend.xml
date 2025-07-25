@@ -27,7 +27,7 @@
             <SetupUILanguage>
                 <UILanguage>en-GB</UILanguage>
             </SetupUILanguage>
-            <InputLocale>1009:00001009;1009:00000409;041f:0000041f</InputLocale>
+            <InputLocale>1009:00000409;041f:0000041f</InputLocale>
             <SystemLocale>en-CA</SystemLocale>
             <UILanguage>en-GB</UILanguage>
             <UILanguageFallback>en-US</UILanguageFallback>
@@ -68,7 +68,7 @@
     </settings>
     <settings pass="oobeSystem">
         <component name="Microsoft-Windows-International-Core" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-            <InputLocale>1009:00001009;1009:00000409;041f:0000041f</InputLocale>
+            <InputLocale>1009:00000409;041f:0000041f</InputLocale>
             <SystemLocale>en-CA</SystemLocale>
             <UILanguage>en-GB</UILanguage>
             <UILanguageFallback>en-US</UILanguageFallback>

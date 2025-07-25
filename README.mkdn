@@ -58,7 +58,6 @@ Each approach has a different way to use this piece of work. Major known ones ar
   - Locale configuration: English (Canada)
   - Time zone: UTC-5 (ET - US & Canada)
   - Keyboard layouts;
-    - Canadian French in English (Canada) (Default)
     - US in English (Canada)
     - Turkish Q in Turkish (Turkey)
   - Licensing info;
