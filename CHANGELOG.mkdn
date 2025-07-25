@@ -1,5 +1,5 @@
-Version 1.4.1-24H2
-https://github.com/kurtbahartr/windows-configs/releases/tag/v1.4.1-24H2
+Version 1.5.0-24H2
+https://github.com/kurtbahartr/windows-configs/releases/tag/v1.5.0-24H2
 -----------------------------------------------------------------------
 **Changes**
 - Install OBS Studio.
