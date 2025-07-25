@@ -142,6 +142,7 @@ Each approach has a different way to use this piece of work. Major known ones ar
   - `msstore/"Microsoft To Do"`
   - `winget/Microsoft.PowerToys`
   - `winget/Microsoft.VisualStudioCode`
+  - `winget/OBSProject.OBSStudio`
   - `winget/Oracle.VirtualBox`
   - `msstore/"Quick Share"`
   - `winget/Google.QuickShare"`
