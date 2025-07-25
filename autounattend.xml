@@ -305,8 +305,11 @@ Windows Registry Editor Version 5.00
 
 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\DeviceGuard\Scenarios\HypervisorEnforcedCodeIntegrity]
 "Enabled"=dword:00000000
-		</File>
-        <File path="C:\Windows\Setup\Scripts\unattend-04.reg" transformation="Text">
+	</File>
+	<File path="C:\Windows\Setup\Scripts\unattend-04.reg" transformation="Text">
+powercfg -duplicatescheme e9a42b02-d5df-448d-aa00-03f14749eb61
+	</File>
+        <File path="C:\Windows\Setup\Scripts\unattend-05.reg" transformation="Text">
 Windows Registry Editor Version 5.00
 
 [HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Taskband]
@@ -540,7 +543,7 @@ Windows Registry Editor Version 5.00
   62,00,62,00,77,00,65,00,21,00,41,00,70,00,70,00,00,00,b0,05,00,00,ff
 "FavoritesChanges"=dword:0000000a
 "FavoritesVersion"=dword:00000003
-        </File>
+	</File>
         <File path="C:\Windows\Setup\Scripts\Specialize.ps1" transformation="Text">
 $scripts = @(
 	{
@@ -591,6 +594,9 @@ $scripts = @(
 	{
 		reg.exe import "C:\Windows\Setup\Scripts\unattend-03.reg";
 	};
+	{
+		C:\Windows\Setup\Scripts\unattend-04.cmd;
+	};
 );
 
 &amp; {
@@ -621,7 +627,7 @@ $scripts = @(
 		if ([Environment]::OSVersion.Version.Build -gt 19999) {
 			Remove-Item "$home\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar\*" -Recurse
 			Copy-Item C:\Windows\Setup\Files\PinLinks\* "$home\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar\"
-			reg.exe import "C:\Windows\Setup\Scripts\unattend-04.reg";
+			reg.exe import "C:\Windows\Setup\Scripts\unattend-05.reg";
 		}
 	};
 	{
