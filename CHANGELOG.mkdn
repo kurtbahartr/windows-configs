@@ -5,6 +5,9 @@ https://github.com/kurtbahartr/windows-configs/releases/tag/v1.5.1-24H2
 - Expose Ultimate Performance power plan.
   - This can be picked via Control Panel > System and Security > Power Options.
 
+**Fixes**
+- `encode-for-autounattend`: Fix administrator account prompt.
+
 Version 1.5.0-24H2
 https://github.com/kurtbahartr/windows-configs/releases/tag/v1.5.0-24H2
 -----------------------------------------------------------------------
